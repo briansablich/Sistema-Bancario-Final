@@ -45,7 +45,7 @@ public class clientePerfilServlet extends HttpServlet {
 		
 		request.getSession().setAttribute("perfilClienteNombre", usuario.getCliente().getNombre() +" " + usuario.getCliente().getApellido());
 		request.getSession().setAttribute("perfilClienteEmail", usuario.getCliente().getCorreoElectronico());
-		request.getSession().setAttribute("perfilClienteTelefono", usuario.getCliente().getTelefono1().getTelefono());
+		request.getSession().setAttribute("perfilClienteTelefono", usuario.getCliente().getTelefonos());
 		request.getSession().setAttribute("perfilClienteDireccion", usuario.getCliente().getDireccion());
 		request.getSession().setAttribute("perfilClienteFechaNacimiento", usuario.getCliente().getFechaNacimiento().toString());
 		request.getSession().setAttribute("perfilClienteCUIT", usuario.getCliente().getCuil());

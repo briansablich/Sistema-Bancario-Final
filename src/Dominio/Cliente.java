@@ -22,7 +22,7 @@ public class Cliente {
 	private String localidad;
 	private String provincia;
 	private String correoElectronico;
-	private ArrayList<Telefono> telefonos;
+	private List<Telefono> telefonos;
 	private List<Cuenta> cuentas; // List<Cuenta> cuentas = Arrays.asList(new Cuenta[3]);
 	private ESTADO estado;
 	
@@ -103,7 +103,7 @@ public class Cliente {
 	public void setCorreoElectronico(String correoElectronico) {
 		this.correoElectronico = correoElectronico;
 	}
-	public ArrayList<Telefono> getTelefonos() {
+	public List<Telefono> getTelefonos() {
 		return telefonos;
 	}
 	public Telefono getTelefonos(int index) {
@@ -142,7 +142,7 @@ public class Cliente {
 		this.localidad = null;
 		this.provincia = null;
 		this.correoElectronico = null;
-		this.telefonos = null; // TO DO: Arreglar esto para inicializarlo como unla lista 
+		this.telefonos = Arrays.asList(new Telefono[2]); // TO DO: Arreglar esto para inicializarlo como unla lista 
 		this.cuentas = Arrays.asList(new Cuenta[3]);
 		this.estado = null;
 	}

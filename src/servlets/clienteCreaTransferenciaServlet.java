@@ -45,7 +45,7 @@ public class clienteCreaTransferenciaServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			usuario = (Usuario) session.getAttribute("usuario");
 			
-			listaCuentas = usuario.getCliente().getCuentas();
+			listaCuentas = (ArrayList<Cuenta>) usuario.getCliente().getCuentas();
 			
 			request.setAttribute("listaCuentas", listaCuentas);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/clienteTransferencias.jsp"); 
