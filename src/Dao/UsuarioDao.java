@@ -19,11 +19,7 @@ public class UsuarioDao implements iUsuarioDao {
 	
 	
 	public int agregarUsuario(Usuario usuarioNuevo) {
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	    }
+
 	    
 	    Connection conexion = null;
 	    PreparedStatement statement = null;
