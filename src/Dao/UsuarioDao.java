@@ -63,14 +63,47 @@ public class UsuarioDao implements iUsuarioDao {
 		return filas;
 	}
 	
-	
-	
-	public Usuario Validar(String usuarioAux, String contrasenia) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
+	@Override
+	public boolean validarLogin(String usuario, String contrasenia) {
+		
+		Connection conexion = null;
+		PreparedStatement statement;
+		ResultSet resultSet;
+		
+		try 
+		{
+			conexion = conexionDB.getConnection();
+			statement = conexion.prepareStatement(selectValidate);
+			statement.setString(1, usuario);
+			statement.setString(2, contrasenia);
+			resultSet = statement.executeQuery();
+			if(resultSet.next()) return true;
+			else return false;
+
+		} 
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
 		}
+		finally {
+			if(conexion != null)
+			{
+				try 
+				{
+					conexion.close();
+				}
+				catch (SQLException e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+		
+	}
+	
+	
+	public Usuario obtenerUsuario(String usuarioAux, String contrasenia) {
 		
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -152,5 +185,8 @@ public class UsuarioDao implements iUsuarioDao {
 		}
 		return usuario;
 	}
+
+
+
 
 }

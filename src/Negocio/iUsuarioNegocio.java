@@ -1,8 +1,8 @@
-package Dao;
+package Negocio;
 
 import Dominio.Usuario;
 
-public interface iUsuarioDao {
+public interface iUsuarioNegocio {
 	
 	boolean validarLogin(String usuario, String contrasenia);
 	

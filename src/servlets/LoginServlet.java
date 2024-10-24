@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Dao.UsuarioDao;
 import Dominio.Usuario;
 import Exception.failLoginException;
+import Negocio.UsuarioNegocio;
+import Negocio.iUsuarioNegocio;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -32,29 +33,31 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		UsuarioDao usuarioDao ;
+		iUsuarioNegocio usuarioNegocio ;
 		Usuario usuario = null;
 
 		try
 		{
 	        String usuarioAux = request.getParameter("username");
 	        String contraseniaAux = request.getParameter("password");
-			usuarioDao = new UsuarioDao();
-			usuario = usuarioDao.Validar(usuarioAux, contraseniaAux);
-	
-			if( usuario.getId() == 0) {
+			usuarioNegocio = new UsuarioNegocio();
+			
+			if(usuarioNegocio.validarLogin(usuarioAux, contraseniaAux)) {
+				usuario = usuarioNegocio.obtenerUsuario(usuarioAux, contraseniaAux);
+
+		        	if (usuario.getAcceso() == "Administrador") {
+						request.getSession().setAttribute("usuario", usuario);
+						RequestDispatcher requestDispatcher = request.getRequestDispatcher("/PortalAdministradores.jsp");   
+						requestDispatcher.forward(request, response);	
+					} else if (usuario.getAcceso() == "Cliente") {
+						request.getSession().setAttribute("usuario", usuario);
+						RequestDispatcher requestDispatcher = request.getRequestDispatcher("/PortalClientes.jsp");   
+						requestDispatcher.forward(request, response);
+					}
+		        }
+			else {
 				throw new failLoginException();
-	        } else {
-	        	if (usuario.getAcceso() == "Administrador") {
-					request.getSession().setAttribute("usuario", usuario);
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/PortalAdministradores.jsp");   
-					requestDispatcher.forward(request, response);	
-				} else if (usuario.getAcceso() == "Cliente") {
-					request.getSession().setAttribute("usuario", usuario);
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/PortalClientes.jsp");   
-					requestDispatcher.forward(request, response);
-				}
-	        }
+			}
 		} 
 		catch (failLoginException e) {
 	        request.setAttribute("exception", e);
