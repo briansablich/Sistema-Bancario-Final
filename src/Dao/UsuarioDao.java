@@ -102,7 +102,6 @@ public class UsuarioDao implements iUsuarioDao {
 		
 	}
 	
-	
 	public Usuario obtenerUsuario(String usuarioAux, String contrasenia) {
 		
 		Connection conexion = null;
@@ -185,8 +184,5 @@ public class UsuarioDao implements iUsuarioDao {
 		}
 		return usuario;
 	}
-
-
-
 
 }

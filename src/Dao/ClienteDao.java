@@ -22,6 +22,7 @@ public class ClienteDao implements iClienteDao{
     private static final String updateCliente = "UPDATE clientes SET DNI = ?, CUIL = ?, nombre = ?, apellido = ?, sexo = ?, nacionalidad = ?, fecha_nacimiento = ?, direccion = ?, localidad = ?, provincia = ?, correo_electronico = ?, estado = ? WHERE id_cliente = ?;";
     private static final String altaLogica = "UPDATE clientes SET estado = 'true' WHERE id_cliente = ?;";
     private static final String listarIdClientes = "SELECT id_cliente FROM bd_banco.clientes";
+    private static final String checkDniQuery = "SELECT dni FROM Clientes WHERE dni = ?;";
 
 
     public int eliminarCliente(int id_cliente_borrar){
@@ -168,11 +169,7 @@ public class ClienteDao implements iClienteDao{
 	}
 
 	public Cliente buscar_con_id(int id) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -577,9 +574,6 @@ public class ClienteDao implements iClienteDao{
 	    }
 	    return listaIdClientes;
 	}
-	
-	
-	private static final String checkDniQuery = "SELECT dni FROM Clientes WHERE dni = ?;";
 
     public boolean existeDni(String dni) {
         boolean exists = false;
@@ -611,10 +605,3 @@ public class ClienteDao implements iClienteDao{
 	
 }
     }
-
-
-
-
-
-
-

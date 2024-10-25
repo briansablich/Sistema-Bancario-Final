@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dominio.Cliente;
-import Dao.ClienteDao;
+import Negocio.iClienteNegocio;
+import Negocio.ClienteNegocio;
 
 import java.util.ArrayList;
 
@@ -37,8 +38,8 @@ public class adminClientesServlet extends HttpServlet {
         ArrayList<Cliente> listadoClientes = new ArrayList<Cliente>();
         
         try {
-            ClienteDao cd = new ClienteDao();
-            listadoClientes = cd.Listar();
+            iClienteNegocio gc = new ClienteNegocio();
+            listadoClientes = (ArrayList<Cliente>) gc.Listar();
         } catch (Exception e) {
             e.printStackTrace();
         }
