@@ -7,9 +7,8 @@ import java.sql.SQLException;
 
 import Dominio.TipoMovimiento;
 
-public class TipoMovimientoDao {
+public class TipoMovimientoDao implements iTipoMovimientoDao{
 
-	
 	private static final String selectTipoMovimiento = "SELECT * FROM tipos_movimiento WHERE id_tipomovimiento = ?";
 
 	public TipoMovimientoDao() {
@@ -58,6 +57,5 @@ public class TipoMovimientoDao {
 		
 		return tipoMovimiento;
 	}
-
 	
 }

@@ -12,7 +12,7 @@ import Dominio.Pago;
 import Dominio.Prestamo;
 
 
-public class PrestamoDao {
+public class PrestamoDao implements iPrestamoDao{
 
 	private static final String selectAll = "SELECT * FROM prestamos";
 	private static final String RechazarID = "UPDATE prestamos SET estado = 'Rechazado' WHERE id_prestamo = ?";
@@ -23,7 +23,6 @@ public class PrestamoDao {
 	private static final String selectPrestamoIdAndIdCuenta = "SELECT * FROM prestamos WHERE id_prestamo = ? AND id_cuenta_destino = ?";
 	private static final String selectPrestamoPorId = "SELECT * FROM prestamos WHERE id_prestamo = ?";
 
-	
 	public int agregarPrestamo(Prestamo prestamoNuevo) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -83,7 +82,6 @@ public class PrestamoDao {
 		}
 		return filas;
 	}	
-	
 	
 	public ArrayList<Prestamo> Listar() {
 		try {
@@ -188,7 +186,6 @@ public class PrestamoDao {
 		return prestamo;
 	}
 
-
 	public int rechazarPrestamo(int id_cliente_rechazar){
 		try {
 				Class.forName("com.mysql.jdbc.Driver");
@@ -238,8 +235,6 @@ public class PrestamoDao {
 		}
 		return filas;
 	}
-
-
 
 	public int aprobarPrestamo(int id_prestamo_aprobar, int id_cuenta_destino){
 		try {
@@ -295,7 +290,6 @@ public class PrestamoDao {
 		return filas;
 	}
 
-	
 	public Prestamo buscarPrestamoACuentaDestino (int id_cuenta_destino, int id_prestamo) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -350,7 +344,6 @@ public class PrestamoDao {
 		return prestamo;
 	}
 	
-	
 	public Prestamo buscarPrestamoPorId (int id_prestamo) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -404,8 +397,6 @@ public class PrestamoDao {
 		return prestamo;
 	}
 	
-	
-
 	public int finalizarPrestamo(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -475,11 +466,5 @@ public class PrestamoDao {
 		}
 		return bandera;
 	}
-
-
-
-
-
-
 
 }

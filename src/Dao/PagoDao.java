@@ -11,20 +11,16 @@ import java.util.Calendar;
 import Dominio.Pago;
 import Dominio.Prestamo;
 
-public class PagoDao {
+public class PagoDao implements iPagoDao{
 
 	private static final String selectAll = "SELECT * FROM pagos";
 	private static final String selectPagoPorId = "SELECT * FROM pagos WHERE id = ?";
 	private static final String selectPagoPorIdPrestamo = "SELECT * FROM pagos WHERE id_prestamo = ?";
-	
 	private static final String updateEstadoPagado = "UPDATE pagos SET estado = 'Pagado' WHERE id = ?";
 	private static final String updateEstadoVencido = "UPDATE pagos SET estado = 'Vencido' WHERE id = ?";
 	private static final String insertPago = "INSERT INTO pagos (fecha , importe, fecha_vencimiento, id_prestamo, id_cuenta, ESTADO) VALUES (?, ?, ?, ?, ?, ?)";
-	
 	private static final String selectWhereIdCliente = "SELECT * FROM pagos WHERE id_cliente = ?";
 	private static final String selectWhereIdCuenta = "SELECT * FROM pagos WHERE id_cuenta = ?";
-	
-	
 	
 	/*
 	public int realizarPago(Pago pagoRealizado) {
@@ -166,8 +162,6 @@ public class PagoDao {
 		return filas;
 	}	
 	
-	
-	
 	public ArrayList<Pago> ListarPorIdPrestamo(int id_prestamo) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -206,7 +200,6 @@ public class PagoDao {
 		return listadoPagosPorPrestamo;
 	}
 	
-	
 	private Pago getPago(ResultSet resultSet) {
 		
 		Pago pago = new Pago();
@@ -226,6 +219,5 @@ public class PagoDao {
 		
 		return pago;
 	}
-	
 	
 }

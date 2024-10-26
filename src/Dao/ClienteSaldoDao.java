@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import Dominio.Cliente;
 import Dominio.ClienteSaldo;
 
-public class ClienteSaldoDao {
+public class ClienteSaldoDao implements iClienteSaldoDao{
+	
     private static final String sp_buscar_saldos_mayores  = "CALL sp_buscar_saldos_mayores(?)";
     private static final String sp_buscar_saldos_menores  = "CALL sp_buscar_saldos_menores(?)";
-
 
     public ArrayList<ClienteSaldo> obtenerClientesConSaldoMayor(float saldoAComparar, boolean esMayor) {
     	        
@@ -63,4 +63,5 @@ public class ClienteSaldoDao {
 		
 		return listadoSaldosPorClientes;
     }
+
 }

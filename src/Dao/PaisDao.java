@@ -10,15 +10,11 @@ import java.util.List;
 import Dominio.Pais;
 import Dominio.Provincia;
 
-public class PaisDao {
+public class PaisDao implements iPaisDao{
 
 	private static final String selectPais = "SELECT * FROM paises WHERE id_pais = ?";
 	private static final String selectAllPais = "SELECT * FROM paises";
 
-	
-
-
-	
 	public Pais getPaisConId(int id_pais) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -61,7 +57,6 @@ public class PaisDao {
 		
 		return pais;
 	}
-
 
 	public ArrayList<Pais> getListaPaises() {
 		
