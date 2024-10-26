@@ -9,7 +9,7 @@ import Dao.iCuentaDao;
 import Dominio.Cuenta;
 
 public class CuentaNegocio implements iCuentaNegocio {
-	private CuentaDao cDao;
+	private iCuentaDao cDao;
 	
 	public CuentaNegocio() {
 		this.cDao = new CuentaDao();
