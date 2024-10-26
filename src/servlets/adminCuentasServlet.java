@@ -63,7 +63,6 @@ public class adminCuentasServlet extends HttpServlet {
 	
 	 }
 
-	
 	private void prepararCrearCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Integer> listadoIdClientes = new ArrayList<Integer>();
 		iClienteNegocio clDao = new ClienteNegocio();
@@ -73,7 +72,6 @@ public class adminCuentasServlet extends HttpServlet {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/adminCrearCuenta.jsp");   
 		requestDispatcher.forward(request, response);
 	}
-	
 	
 	private void crearCuenta (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -118,8 +116,6 @@ public class adminCuentasServlet extends HttpServlet {
 		
 		mostrarCuenta(request, response);
 	}
-	
-   
 
 	private void modificarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
@@ -168,7 +164,6 @@ public class adminCuentasServlet extends HttpServlet {
 	
 	}
 	
-	
 	private void eliminarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idParaBorrar = Integer.parseInt(request.getParameter("CuentaId"));
 
@@ -181,8 +176,6 @@ public class adminCuentasServlet extends HttpServlet {
         }
     }
 	
-	
-	
 	private void activarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idParaActivar = Integer.parseInt(request.getParameter("CuentaId"));
 
@@ -194,7 +187,6 @@ public class adminCuentasServlet extends HttpServlet {
             rd.forward(request, response);
         }
     }	
-	
 	
 	private void mostrarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
@@ -226,10 +218,6 @@ public class adminCuentasServlet extends HttpServlet {
 		requestDispatcher.forward(request, response);
 	}
 		
-		
-		
-		
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -237,5 +225,4 @@ public class adminCuentasServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
