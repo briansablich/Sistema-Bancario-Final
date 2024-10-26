@@ -1,10 +1,10 @@
-package Dao;
+package Negocio;
 
 import java.util.List;
 
 import Dominio.Provincia;
 
-public interface iProvinciaDao {
+public interface iProvinciaNegocio {
 	
 	Provincia getProvinciaConId(int id_provincia);
 	List<Provincia> getListaProvinciasConCantidadDeClientes();
