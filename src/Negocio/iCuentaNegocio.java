@@ -1,4 +1,4 @@
-package Dao;
+package Negocio;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import Dominio.Cuenta;
 
-public interface iCuentaDao {
+public interface iCuentaNegocio {
 	int modificarMontoACuenta(float montoNuevo,  int id_cuenta);
 	List<Cuenta> getListaCuentasPorCliente(int id_cliente);
 	ArrayList <Cuenta> Listar();

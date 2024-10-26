@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Dao.ClienteDao;
-import Dao.CuentaDao;
 import Dominio.Cliente;
 import Dominio.Cuenta;
 import Dominio.TiposCuenta;
+import Negocio.ClienteNegocio;
+import Negocio.CuentaNegocio;
+import Negocio.iClienteNegocio;
+import Negocio.iCuentaNegocio;
 
 /**
  * Servlet implementation class adminCuentasServlet
@@ -64,7 +66,7 @@ public class adminCuentasServlet extends HttpServlet {
 	
 	private void prepararCrearCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Integer> listadoIdClientes = new ArrayList<Integer>();
-		ClienteDao clDao = new ClienteDao();
+		iClienteNegocio clDao = new ClienteNegocio();
 		listadoIdClientes = clDao.listarIdClientes();
 		
 		request.setAttribute("listadoIdClientes", listadoIdClientes);
@@ -75,8 +77,8 @@ public class adminCuentasServlet extends HttpServlet {
 	
 	private void crearCuenta (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ClienteDao clDao = new ClienteDao();
-        CuentaDao cuentaDao = new CuentaDao();
+		iClienteNegocio clDao = new ClienteNegocio();
+        iCuentaNegocio cuentaDao = new CuentaNegocio();
 		TiposCuenta tipCuenta = new TiposCuenta();
 		Cuenta cuenta  = new Cuenta();
 		
@@ -104,7 +106,7 @@ public class adminCuentasServlet extends HttpServlet {
 		cuenta.setEstado("true");
 		cuenta.setIdCuenta(cuentaDao.cantidadRegistros() + 1);
 		
-		CuentaDao cd = new CuentaDao();
+		iCuentaNegocio cd = new CuentaNegocio();
 		int filasAgregadas = cd.agregarCuenta(cuenta);
 		
 		if(filasAgregadas == 0) {
@@ -159,7 +161,7 @@ public class adminCuentasServlet extends HttpServlet {
 	cuenta.setEstado(request.getParameter("estado"));
 	cuenta.setIdCuenta(Integer.parseInt (request.getParameter("idCuenta")));
 	
-	CuentaDao cueDao = new CuentaDao();
+	iCuentaNegocio cueDao = new CuentaNegocio();
 	cueDao.ModificarCuenta(cuenta);
 	
 	mostrarCuenta(request, response);
@@ -170,7 +172,7 @@ public class adminCuentasServlet extends HttpServlet {
 	private void eliminarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idParaBorrar = Integer.parseInt(request.getParameter("CuentaId"));
 
-        CuentaDao cuentaDao = new CuentaDao();
+        iCuentaNegocio cuentaDao = new CuentaNegocio();
         int baja = cuentaDao.BajaLogicaCuenta(idParaBorrar);
 
         if (baja == 1) {
@@ -184,7 +186,7 @@ public class adminCuentasServlet extends HttpServlet {
 	private void activarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idParaActivar = Integer.parseInt(request.getParameter("CuentaId"));
 
-        CuentaDao cuentaDao = new CuentaDao();
+        iCuentaNegocio cuentaDao = new CuentaNegocio();
         int baja = cuentaDao.AltaLogicaCuenta(idParaActivar);
 
         if (baja == 1) {
@@ -199,7 +201,7 @@ public class adminCuentasServlet extends HttpServlet {
 	
 		ArrayList<Cuenta> listadoCuentas = new ArrayList<Cuenta>();
 		try {
-			CuentaDao cd = new CuentaDao();
+			iCuentaNegocio cd = new CuentaNegocio();
 			//if(request.getParameter("botonMostrar") != null) 
 				listadoCuentas = cd.Listar();
 			
@@ -209,7 +211,7 @@ public class adminCuentasServlet extends HttpServlet {
 		}
 		// el boton de mostrar que muestra todos los clientes desactivados (estado false)		
 		try {
-			CuentaDao cd = new CuentaDao();
+			iCuentaNegocio cd = new CuentaNegocio();
 			if(request.getParameter("botonMostrarEliminados") != null) {
 				listadoCuentas = cd.ListarConEstadoFalse();
 			}

@@ -23,14 +23,10 @@ public class CuentaDao implements iCuentaDao{
 	private static final String altaLogica = "UPDATE cuentas SET estado = 'true' WHERE id_cuenta = ?;";
 	private static final String updateCuenta = "UPDATE cuentas SET saldo = ?, id_tipo_cuenta = ?  WHERE id_cuenta = ?;";
 	private static final String cuentasPorCliente = "SELECT * FROM `bd_banco`.`cuentas` WHERE id_cliente = ? and estado = 'True';";    
-	
 	private static final String cantidadCuentas = "SELECT COUNT(*) FROM `bd_banco`.`cuentas`;";
 	private static final String ultimoNumCuentaIngresado = "SELECT numero_cuenta FROM bd_banco.cuentas ORDER BY id_cuenta DESC LIMIT 1";
 	private static final String traerUltimoCbu = "SELECT CBU FROM bd_banco.cuentas ORDER BY id_cuenta DESC LIMIT 1";
-	
 	private static final String cantidadCuentasPorCliente = "SELECT COUNT(*) FROM `bd_banco`.`cuentas` where id_cliente = ?";
-	
-	
 	//se modifica el saldo 
 	private static final String modificarSaldo = "UPDATE cuentas SET saldo = ? WHERE id_cuenta = ?;";
 
@@ -77,7 +73,6 @@ public class CuentaDao implements iCuentaDao{
 		    return filas;	
 	}
 	
-	
 	public List<Cuenta> getListaCuentasPorCliente(int id_cliente) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -116,7 +111,6 @@ public class CuentaDao implements iCuentaDao{
 		}
 		return listadoCuentas;
 	}
-
 
 	public ArrayList<Cuenta> Listar() {
 		
@@ -163,7 +157,6 @@ public class CuentaDao implements iCuentaDao{
 		return listadoCuentas;
 	}
 
-	
 	private Cuenta getCuenta(ResultSet resultSet) {
 		
 		Cuenta cuenta = null;
@@ -189,7 +182,6 @@ public class CuentaDao implements iCuentaDao{
 		
 		return cuenta;
 	}
-	
 	
 	public Cuenta buscar_con_id(int id) {
 		try {
@@ -232,7 +224,6 @@ public class CuentaDao implements iCuentaDao{
 		return cuenta;
 	}
 	
-
 	public ArrayList<Cuenta> ListarConEstadoFalse() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -285,7 +276,6 @@ public class CuentaDao implements iCuentaDao{
 		}
 		return listadoCuentasFalse;
 	}
-
 	
 	public ArrayList<Cuenta> ListarConEstadoTrue() {
 		try {
@@ -339,13 +329,6 @@ public class CuentaDao implements iCuentaDao{
 		}
 		return listadoCuentasTrue;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	public int agregarCuenta(Cuenta cuentaNueva) {
 		Cliente cliente = new Cliente();
@@ -415,7 +398,6 @@ public class CuentaDao implements iCuentaDao{
 		return filas;
 	}
 	
-	
 	public int BajaLogicaCuenta(int idCuentaBaja) {
 		
 	    try {
@@ -458,7 +440,6 @@ public class CuentaDao implements iCuentaDao{
 	    return filas;	
 	
 	}	
-	
 	
 	public int AltaLogicaCuenta(int idCuentaAlta) {
 		
@@ -547,8 +528,7 @@ public class CuentaDao implements iCuentaDao{
 	    }
 	return filas;	
 	}		
-	
-	      
+		      
 	public long generarCbu() {
 	    try {
 	        Class.forName("com.mysql.jdbc.Driver");
@@ -599,9 +579,7 @@ public class CuentaDao implements iCuentaDao{
 	    }
 	    return ultimoCbu;
 	}
-
-    
-    
+   
 	public int cantidadRegistros() {
 	    try {
 	        Class.forName("com.mysql.jdbc.Driver");
@@ -651,8 +629,7 @@ public class CuentaDao implements iCuentaDao{
 	    }
 	    return cantidadDeCuentas;
 	}
-
-    
+ 
 	public long generarNumeroCuenta() {
 	    try {
 	        Class.forName("com.mysql.jdbc.Driver");
@@ -704,8 +681,7 @@ public class CuentaDao implements iCuentaDao{
 
 	    return ultimoNumCuenta;
 	}
-	
-	
+		
 	public void realizarTransferencia(String cbuOrigen, String cbuDestino, double monto) throws SQLException {
 	    Connection conexion = null;
 	    java.sql.CallableStatement cstmt = null;
@@ -722,7 +698,6 @@ public class CuentaDao implements iCuentaDao{
 	        if (conexion != null) conexion.close();
 	    }
 	}
-	
 	
 	public int cuentasDelCliente(int idCuenta) {
 	    try {

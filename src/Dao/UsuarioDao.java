@@ -15,8 +15,6 @@ public class UsuarioDao implements iUsuarioDao {
 	
 	private static final String selectValidate = "SELECT `usuarios`.`id_usuario`, `usuarios`.`usuario`, `usuarios`.`contrasenia`, `usuarios`.`acceso`, `usuarios`.`id_cliente`, `usuarios`.`estado` FROM `bd_banco`.`usuarios` WHERE `usuarios`.`usuario` = ? AND `usuarios`.`contrasenia` = ?;";
 	private static final String insertUsuario = "INSERT INTO `bd_banco`.`usuarios`(usuario, contrasenia, acceso, id_cliente, estado) VALUES (?, ?, ?, ?, ?)";
-
-	
 	
 	public int agregarUsuario(Usuario usuarioNuevo) {
 

@@ -51,4 +51,22 @@ public class ClienteNegocio implements iClienteNegocio {
 		return clienteDao.ModificacionCliente(clienteModificar);
 	}
 
+	@Override
+	public int AltaLogicaCliente(int idClienteAlta) {
+		iClienteDao clienteDao = new ClienteDao();
+		return clienteDao.AltaLogicaCliente(idClienteAlta);
+	}
+
+	@Override
+	public ArrayList<Integer> listarIdClientes() {
+		iClienteDao clienteDao = new ClienteDao();
+		return clienteDao.listarIdClientes();
+	}
+
+	@Override
+	public boolean existeDni(String dni) {
+		iClienteDao clienteDao = new ClienteDao();
+		return clienteDao.existeDni(dni);
+	}
+
 }
