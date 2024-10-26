@@ -10,7 +10,7 @@ public class ProvinciaNegocio implements iProvinciaNegocio {
 
 	private iProvinciaDao iPDao;
 	
-	ProvinciaNegocio(){
+	public ProvinciaNegocio(){
 		this.iPDao = new ProvinciaDao();
 	}
 	@Override

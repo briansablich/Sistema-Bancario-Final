@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Dao.ClienteDao;
+import Negocio.ClienteNegocio;
 
 /**
  * Servlet implementation class activaClienteServlet
@@ -40,7 +40,7 @@ public class activaClienteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idParaActivar = Integer.parseInt(request.getParameter("clienteId"));
 
-        ClienteDao cliDao = new ClienteDao();
+        ClienteNegocio cliDao = new ClienteNegocio();
         int alta = cliDao.AltaLogicaCliente(idParaActivar);
 
         if (alta == 1) {

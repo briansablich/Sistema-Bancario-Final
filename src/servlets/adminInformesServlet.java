@@ -15,6 +15,7 @@ import Dao.ClienteSaldoDao;
 import Dao.ProvinciaDao;
 import Dominio.ClienteSaldo;
 import Dominio.Provincia;
+import Negocio.ProvinciaNegocio;
 
 /**
  * Servlet implementation class adminInformesServlet
@@ -70,7 +71,7 @@ public class adminInformesServlet extends HttpServlet {
 
 	private void clientesPorProvincia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		ProvinciaDao pDao = new ProvinciaDao();
+		ProvinciaNegocio pDao = new ProvinciaNegocio();
 		ArrayList<Provincia> listadoProvincias = (ArrayList<Provincia>) pDao.getListaProvinciasConCantidadDeClientes();
 		request.setAttribute("listadoProvincias", listadoProvincias);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/adminInformes.jsp");   

@@ -13,7 +13,6 @@ public class TelefonoDao implements iTelefonoDao {
     private static final String selectAll = "SELECT `telefonos`.`id_telefono`, `telefonos`.`telefono` FROM `bd_banco`.`telefonos` WHERE `id_cliente` = ?;";
     private static final String insertarTelefono = "INSERT INTO `bd_banco`.`telefonos` ( `telefono`, `id_cliente` ) VALUES ( ?, ? );";
     private static final String modificarTelefono = "UPDATE `bd_banco`.`telefonos` SET `telefono` = ? WHERE `id_telefono` = ?;";
-    
     private static final String modificarTelefonos = "UPDATE telefonos SET telefono1 = ?, telefono2 =? WHERE id_cliente =?";
     private static final String insertTelefonos = "INSERT INTO `bd_banco`.`telefonos` (telefono1, telefono2, id_cliente) VALUES (?, ?, ?)";
 	
@@ -111,7 +110,6 @@ public class TelefonoDao implements iTelefonoDao {
         return filas;
     }
 
-	
     @Override
 	public ArrayList<Telefono> Listar_de(int id_cliente) {
 		try {
