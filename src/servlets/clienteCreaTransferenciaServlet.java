@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Dao.CuentaDao;
-import Dao.UsuarioDao;
 import Dominio.Cuenta;
 import Dominio.Usuario;
 
@@ -37,7 +35,6 @@ public class clienteCreaTransferenciaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		if(request.getParameter("action").equals("RealizarTransferencia")) {
-			CuentaDao cDao = new CuentaDao();
 			ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>();
 			
 			

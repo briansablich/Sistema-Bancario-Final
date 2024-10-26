@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Dao.CuentaDao;
+import Negocio.CuentaNegocio;
+
 
 /**
  * Servlet implementation class Transferencias
@@ -32,7 +33,7 @@ public class TransferenciasServlet extends HttpServlet {
 		String cbuOrigen = request.getParameter("cbuOrigen");
         String cbuDestino = request.getParameter("cbuDestino");
         double monto = Double.parseDouble(request.getParameter("monto"));
-        CuentaDao cuentaDao = new CuentaDao();
+        CuentaNegocio cuentaDao = new CuentaNegocio();
         try {
             cuentaDao.realizarTransferencia(cbuOrigen, cbuDestino, monto);
             response.sendRedirect("ExitosaTransferencia.jsp"); // Página de éxito

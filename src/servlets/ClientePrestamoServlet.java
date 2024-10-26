@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Dao.CuentaDao;
-import Dao.PrestamoDao;
 import Dominio.Cliente;
 import Dominio.Cuenta;
 import Dominio.Prestamo;
 import Dominio.Usuario;
+import Negocio.CuentaNegocio;
+import Negocio.PrestamoNegocio;
 
 /**
  * Servlet implementation class ClientePrestamoServlet
@@ -38,7 +38,7 @@ public class ClientePrestamoServlet extends HttpServlet {
         
         if (request.getParameter("action") != null) {
 	        if(request.getParameter("action").equals("ListarPrestamosPorCliente")) {
-	        	PrestamoDao pDao = new PrestamoDao();
+	        	PrestamoNegocio pDao = new PrestamoNegocio();
 	    		List<Prestamo> listadoPrestamosPorCliente = pDao.ListarPorIdCliente(id_cliente);
 	    		request.setAttribute("listadoPrestamosPorCliente", listadoPrestamosPorCliente);
 	            RequestDispatcher rd = request.getRequestDispatcher("/clientePagoPrestamos.jsp");
@@ -55,7 +55,7 @@ public class ClientePrestamoServlet extends HttpServlet {
 	
 	//traer listado de cuentas por cliente
 	private void mostrarListadoCuentas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CuentaDao cDao = new CuentaDao();
+        CuentaNegocio cDao = new CuentaNegocio();
         Usuario usuarioLogueado = (Usuario) request.getSession().getAttribute("usuario");
         
         List<Cuenta> listadoCuentas = cDao.getListaCuentasPorCliente(usuarioLogueado.getCliente().getId());
@@ -101,7 +101,7 @@ public class ClientePrestamoServlet extends HttpServlet {
 			prestamo.setMontoMensual(monto_mensual);
 			prestamo.setEstado("Solicitado");
 			
-			PrestamoDao pDao = new PrestamoDao();
+			PrestamoNegocio pDao = new PrestamoNegocio();
 			filasAgregadas = pDao.agregarPrestamo(prestamo);
 			
 		}

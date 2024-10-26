@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Dao.PagoDao;
 import Dominio.Pago;
+import Negocio.PagoNegocio;
 
 @WebServlet("/PortalPagosBancoServlet")
 public class PortalPagosBancoServlet extends HttpServlet {
@@ -30,10 +30,10 @@ public class PortalPagosBancoServlet extends HttpServlet {
 	}
 	
 	protected void generarListaDePago(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PagoDao pagoDao = new PagoDao();
+		PagoNegocio pagoDao = new PagoNegocio();
 		int idPrestamo = Integer.parseInt(request.getParameter("prestamoId"));
 		ArrayList<Pago> listaDePagosPorPrestamo = new ArrayList<>();
-		listaDePagosPorPrestamo = pagoDao.ListarPorIdPrestamo(idPrestamo);
+		listaDePagosPorPrestamo = (ArrayList<Pago>) pagoDao.ListarPorIdPrestamo(idPrestamo);
 		
 		request.setAttribute("idPrestamo", idPrestamo);
 		request.setAttribute("listaDePagosPorPrestamo", listaDePagosPorPrestamo);

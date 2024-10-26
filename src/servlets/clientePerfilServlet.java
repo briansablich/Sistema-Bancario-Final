@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Dao.CuentaDao;
 import Dominio.Cuenta;
 import Dominio.Usuario;
+import Negocio.CuentaNegocio;
 
 /**
  * Servlet implementation class clientePerfilServlet
@@ -51,7 +51,7 @@ public class clientePerfilServlet extends HttpServlet {
 		request.getSession().setAttribute("perfilClienteCUIT", usuario.getCliente().getCuil());
 		
 		//Listar cuentas x cliente
-		CuentaDao cDao = new CuentaDao();
+		CuentaNegocio cDao = new CuentaNegocio();
         List<Cuenta> listadoCuentas = cDao.getListaCuentasPorCliente(usuario.getCliente().getId());
         request.setAttribute("listadoCuentas", listadoCuentas);
 		

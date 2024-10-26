@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.javafx.scene.paint.GradientUtils.Parser;
+import Negocio.ClienteNegocio;
 
-import Dao.ClienteDao;
 
 /**
  * Servlet implementation class eliminarClienteServlet
@@ -41,7 +40,7 @@ public class eliminarClienteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idParaBorrar = Integer.parseInt(request.getParameter("clienteId"));
-        ClienteDao cliDao = new ClienteDao();
+        ClienteNegocio cliDao = new ClienteNegocio();
         int baja = cliDao.BajaLogicaCliente(idParaBorrar);
 
         if (baja == 1) {

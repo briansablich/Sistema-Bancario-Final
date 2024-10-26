@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dominio.Prestamo;
-import Dao.PrestamoDao;;
+import Negocio.PrestamoNegocio;
 /**
  * Servlet implementation class adminPrestamosServlet
  */
@@ -34,7 +34,7 @@ public class adminPrestamosServlet extends HttpServlet {
 		mostrarPrestamos(request,response);	
 		if (request.getParameter("btnRechazar") != null)	{
 	        int idParaRechazar = Integer.parseInt(request.getParameter("prestamoId"));
-	        PrestamoDao preDao = new PrestamoDao();
+	        PrestamoNegocio preDao = new PrestamoNegocio();
 	        int baja = preDao.rechazarPrestamo(idParaRechazar);
 	        if (baja == 1) {
 	            RequestDispatcher rd = request.getRequestDispatcher("adminPrestamos.jsp");
@@ -52,7 +52,7 @@ public class adminPrestamosServlet extends HttpServlet {
 	private void aprobarPrestamo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 int idParaAprobar = Integer.parseInt(request.getParameter("prestamoId"));
 	        int idCuentaDestino = Integer.parseInt(request.getParameter("idCuentaDestino"));
-	        PrestamoDao preDao = new PrestamoDao();
+	        PrestamoNegocio preDao = new PrestamoNegocio();
 	        preDao.aprobarPrestamo(idParaAprobar, idCuentaDestino);
 	}
 
@@ -60,8 +60,8 @@ public class adminPrestamosServlet extends HttpServlet {
     private void mostrarPrestamos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Prestamo> listadoPrestamos = new ArrayList<>();
         try {
-            PrestamoDao cd = new PrestamoDao();
-            listadoPrestamos = cd.Listar();
+        	PrestamoNegocio cd = new PrestamoNegocio();
+            listadoPrestamos = (ArrayList<Prestamo>) cd.Listar();
         } catch (Exception e) {
             e.printStackTrace();
         }

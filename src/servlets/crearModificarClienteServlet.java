@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Dao.ClienteDao;
-import Dao.ProvinciaDao;
-import Dao.TelefonoDao;
 import Dominio.Cliente;
 import Dominio.Provincia;
 import Dominio.Telefono;
+import Negocio.ClienteNegocio;
+import Negocio.ProvinciaNegocio;
 
 /**
  * Servlet implementation class modificaClientesServlet
@@ -38,12 +37,12 @@ public class crearModificarClienteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProvinciaDao provinciaDao = new ProvinciaDao();
-        ArrayList<Provincia> listadoProvincias = provinciaDao.getListaProvincias();
+        ProvinciaNegocio provinciaDao = new ProvinciaNegocio();
+        ArrayList<Provincia> listadoProvincias = (ArrayList<Provincia>) provinciaDao.getListaProvincias();
         request.setAttribute("listadoProvincias", listadoProvincias);
 		if (request.getParameter("btnModificar") != null && request.getParameter("btnModificar").toString().equals("MODIFICAR")) {
         	int idParaModificar = Integer.parseInt(request.getParameter("clienteId"));
-            ClienteDao clienteDao = new ClienteDao();
+        	ClienteNegocio clienteDao = new ClienteNegocio();
             Cliente cliente = clienteDao.buscar_con_id(idParaModificar);
             System.out.println("Id: " + idParaModificar);
             System.out.println("Cliente: " + cliente.toString());
@@ -67,7 +66,7 @@ public class crearModificarClienteServlet extends HttpServlet {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                ClienteDao clienteDao = new ClienteDao();
+                ClienteNegocio clienteDao = new ClienteNegocio();
                 Cliente cliente = clienteDao.buscar_con_id(idParaModificar);
                 cliente.setDni(request.getParameter("dni"));
                 cliente.setCuil(request.getParameter("cuil"));
@@ -117,7 +116,7 @@ public class crearModificarClienteServlet extends HttpServlet {
             // Validaci�n de campos
             if (validarCamposCliente(request)) {
             	// Verificar si el DNI ya existe
-            	   ClienteDao clienteDao = new ClienteDao();
+            	ClienteNegocio clienteDao = new ClienteNegocio();
             	   String dni = request.getParameter("dni");
             	   if (clienteDao.existeDni(dni)) {
             	       // Manejo de error: DNI duplicado
@@ -160,7 +159,7 @@ public class crearModificarClienteServlet extends HttpServlet {
                 
                 cliente.setEstado("True");
 
-                ClienteDao cd = new ClienteDao();
+                ClienteNegocio cd = new ClienteNegocio();
                 filasAgregadas = cd.agregarCliente(cliente);
                 System.out.println(filasAgregadas);
                 RequestDispatcher rd1 = request.getRequestDispatcher("adminClientesServlet");

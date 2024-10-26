@@ -10,11 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Dao.ClienteDao;
-import Dao.ClienteSaldoDao;
-import Dao.ProvinciaDao;
 import Dominio.ClienteSaldo;
 import Dominio.Provincia;
+import Negocio.ClienteSaldoNegocio;
 import Negocio.ProvinciaNegocio;
 
 /**
@@ -50,9 +48,9 @@ public class adminInformesServlet extends HttpServlet {
 	}
 
 	private void mayorSaldoA (HttpServletRequest request, HttpServletResponse response, float num) throws ServletException, IOException {
-		ClienteSaldoDao csDao = new ClienteSaldoDao();
+		ClienteSaldoNegocio csDao = new ClienteSaldoNegocio();
 		ArrayList<ClienteSaldo> listadoClientesPorSaldo = new ArrayList <ClienteSaldo>();
-		listadoClientesPorSaldo = csDao.obtenerClientesConSaldoMayor(num, true);
+		listadoClientesPorSaldo = (ArrayList<ClienteSaldo>) csDao.obtenerClientesConSaldoMayor(num, true);
 		request.setAttribute("listadoClientesPorSaldo", listadoClientesPorSaldo);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/adminInformes.jsp");   
 		requestDispatcher.forward(request, response);
@@ -60,9 +58,9 @@ public class adminInformesServlet extends HttpServlet {
 	}
 
 	private void menorSaldoA (HttpServletRequest request, HttpServletResponse response, float num) throws ServletException, IOException {
-		ClienteSaldoDao csDao = new ClienteSaldoDao();
+		ClienteSaldoNegocio csDao = new ClienteSaldoNegocio();
 		ArrayList<ClienteSaldo> listadoClientesPorSaldo = new ArrayList <ClienteSaldo>();
-		listadoClientesPorSaldo = csDao.obtenerClientesConSaldoMayor(num, false);
+		listadoClientesPorSaldo = (ArrayList<ClienteSaldo>) csDao.obtenerClientesConSaldoMayor(num, false);
 		request.setAttribute("listadoClientesPorSaldo", listadoClientesPorSaldo);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/adminInformes.jsp");   
 		requestDispatcher.forward(request, response);

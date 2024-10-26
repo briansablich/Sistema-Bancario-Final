@@ -11,7 +11,7 @@ public class MovimientoNegocio implements iMovimientoNegocio {
 	
 	private iMovimientoDao iMDao;
 	
-	MovimientoNegocio(){
+	public MovimientoNegocio(){
 		this.iMDao = new MovimientoDao();
 	}
 	

@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Dao.MovimientoDao;
 import Dominio.Movimiento;
+import Negocio.MovimientoNegocio;
 
 /**
  * Servlet implementation class MovimientosServlet
@@ -27,7 +27,7 @@ public class MovimientosServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<Movimiento> listadoMovimientosPorCuenta = new ArrayList<>();
-		MovimientoDao mDao = new MovimientoDao();
+		MovimientoNegocio mDao = new MovimientoNegocio();
 		listadoMovimientosPorCuenta = mDao.ListarMovimientosPorCuenta(Integer.parseInt(request.getParameter("cuenta_seleccionada")));
 		request.setAttribute("listadoMovimientosPorCuenta", listadoMovimientosPorCuenta);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Movimientos.jsp");   
