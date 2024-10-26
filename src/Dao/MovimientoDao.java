@@ -18,12 +18,9 @@ public class MovimientoDao implements iMovimientoDao {
 
 	private static final String selectAll = "SELECT * FROM cuentas";
 	private static final String movimientoPorCuenta = "SELECT * FROM `bd_banco`.`movimientos` WHERE id_cuenta_origen = ? OR id_cuenta_destino = ?";   
-	
 	private static final String insertMovimientoDesdePrestamo = "INSERT INTO `bd_banco`.`movimientos`(fecha, concepto, importe, id_tipo_movimiento, id_cuenta_origen, id_cuenta_destino) VALUES(?, ?, ?, ?, ?, ?)";
 			
-			
-			
-
+	
 	public int agregarPrestamoAMovimiento(Prestamo prestamoAprobado) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -95,7 +92,6 @@ public class MovimientoDao implements iMovimientoDao {
 		return filas;
 	}
 	
-	
 	public ArrayList<Movimiento> ListarMovimientosPorCuenta(int id_cuenta) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -135,7 +131,6 @@ public class MovimientoDao implements iMovimientoDao {
 		return listadoMovimiento;
 	}
 	
-	
 	public ArrayList<Movimiento> Listar() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -173,7 +168,6 @@ public class MovimientoDao implements iMovimientoDao {
 		return listadoMovimiento;
 	}
 	
-	
 	private Movimiento getMovimiento(ResultSet resultSet) {
 		
 		Movimiento movimiento = null;
@@ -197,9 +191,5 @@ public class MovimientoDao implements iMovimientoDao {
 		
 		return movimiento;
 	}
-	
-	
-	
-	
-	
+
 }
