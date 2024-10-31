@@ -20,7 +20,7 @@ public class Cliente {
 	private java.util.Date fechaNacimiento; 
 	private String direccion;
 	private String localidad;
-	private String provincia;
+	private Provincia provincia;
 	private String correoElectronico;
 	private List<Telefono> telefonos;
 	private List<Cuenta> cuentas; // List<Cuenta> cuentas = Arrays.asList(new Cuenta[3]);
@@ -91,10 +91,10 @@ public class Cliente {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
-	public String getProvincia() {
+	public Provincia getProvincia() {
 		return provincia;
 	}
-	public void setProvincia(String provincia) {
+	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
 	}
 	public String getCorreoElectronico() {
@@ -148,7 +148,7 @@ public class Cliente {
 	}
 	
 	public Cliente(String dni, String cuil, String nombre, String apellido, SEXO sexo, String nacionalidad,
-			Date fechaNacimiento, String direccion, String localidad, String provincia, String correoElectronico,
+			Date fechaNacimiento, String direccion, String localidad, Provincia provincia, String correoElectronico,
 			ArrayList<Telefono> telefonos, ArrayList<Cuenta> cuentas, ESTADO estado) {
 		super();
 		this.dni = dni;
@@ -171,7 +171,7 @@ public class Cliente {
 	public String toString() {
 		return "Cliente [id=" + id + ", dni=" + dni + ", cuil=" + cuil + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", sexo=" + sexo + ", nacionalidad=" + nacionalidad + ", fechaNacimiento=" + fechaNacimiento
-				+ ", direccion=" + direccion + ", localidad=" + localidad + ", provincia=" + provincia
+				+ ", direccion=" + direccion + ", localidad=" + localidad + ", provincia=" + provincia.toString()
 				+ ", correoElectronico=" + correoElectronico + ", telefonos=" + telefonos + ", cuentas=" + cuentas
 				+ ", estado=" + estado + "]";
 	}

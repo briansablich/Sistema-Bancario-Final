@@ -53,20 +53,21 @@
 				<br>
 				<label>Localidad</label>
 				<input type="text" name="localidad" id="localidad" <% if (cAux != null) { %> value="<%= cAux.getLocalidad() %>" <% } %>>
-				<br>	
+				<br>
+				
+				<!-------------------  DESPLEGABLE DE PROVINCIA  -------------------->
 				<label>Provincia</label>
 				<select name="provincia" id="provincia">
 					<% if(request.getAttribute("listadoProvincias") != null){ 
 						List<Provincia> listadoProvincias =  (List<Provincia>)request.getAttribute("listadoProvincias");
 						for (Provincia p : listadoProvincias){
 					%>	
-					<option value="<%= p.getId_provincia()%>"><%= p.toString() %></option>
+					<option value="<%= p.getId_provincia()%>"  <% if (cAux != null && cAux.getProvincia().getId_provincia()== p.getId_provincia()){ %> selected <%} %>><%= p.toString() %> </option>
 			
 					<%}
 					}%>
 				</select>
 
-		
 		<!-- 
 		<input type="text" name="provincia" id="provincia" <% if (cAux != null) { %> value="<%= cAux.getProvincia() %>" <% } %>>
 		 -->

@@ -66,7 +66,7 @@
 	                    <td><%= cliente.getFechaNacimiento().toString()%></td>
 	                    <td><%= cliente.getDireccion()%></td>
 	                    <td><%= cliente.getLocalidad()%></td>
-	                    <td><%= cliente.getProvincia()%></td>
+	                    <td><%= cliente.getProvincia().toString()%></td>
 	                    <td><%= cliente.getCorreoElectronico()%></td>
 	                    <td><% if (!(cliente.getTelefonos()).isEmpty() && cliente.getTelefonos() != null) { %> <%= (cliente.getTelefonos()).get(0) %> <% } %></td>
 	                    <td><% if (!(cliente.getTelefonos()).isEmpty() && cliente.getTelefonos() != null) { %> <%= (cliente.getTelefonos()).get(1) %> <% } %></td>

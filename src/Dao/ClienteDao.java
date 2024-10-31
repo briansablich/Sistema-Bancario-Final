@@ -99,7 +99,7 @@ public class ClienteDao implements iClienteDao{
 			statement.setDate(7, fechaSql);
 			statement.setString(8, clienteNuevo.getDireccion());
 			statement.setString(9, clienteNuevo.getLocalidad());
-			statement.setString(10, clienteNuevo.getProvincia());
+			statement.setInt(10, clienteNuevo.getProvincia().getId_provincia());
 			statement.setString(11, clienteNuevo.getCorreoElectronico());
 			statement.setString(12, clienteNuevo.getEstado().name());
 
@@ -198,6 +198,7 @@ public class ClienteDao implements iClienteDao{
 		
 		Cliente cliente = null;
 		TelefonoDao telefonoDao = new TelefonoDao();
+		ProvinciaDao provDao = new ProvinciaDao();
 		
 		try {
 			cliente = new Cliente();
@@ -211,7 +212,7 @@ public class ClienteDao implements iClienteDao{
 			cliente.setFechaNacimiento(resultSet.getDate("fecha_nacimiento"));
 			cliente.setDireccion(resultSet.getString("direccion"));
 			cliente.setLocalidad(resultSet.getString("localidad"));
-			cliente.setProvincia(resultSet.getString("provincia"));
+			cliente.setProvincia(provDao.getProvinciaConId(resultSet.getInt("provincia")));
 			cliente.setCorreoElectronico(resultSet.getString("correo_electronico"));
 			cliente.setTelefonos(telefonoDao.Listar_de(cliente.getId()));
 			cliente.setEstado(resultSet.getString("estado"));	
@@ -409,7 +410,7 @@ public class ClienteDao implements iClienteDao{
 			statement.setDate(7, fechaSql);
 			statement.setString(8, clienteModificar.getDireccion());
 			statement.setString(9, clienteModificar.getLocalidad());
-			statement.setString(10, clienteModificar.getProvincia());
+			statement.setInt(10, clienteModificar.getProvincia().getId_provincia());
 			statement.setString(11, clienteModificar.getCorreoElectronico());
 			statement.setString(12, clienteModificar.getEstado().name());
 			statement.setInt(13,clienteModificar.getId());

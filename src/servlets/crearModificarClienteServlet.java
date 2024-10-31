@@ -37,37 +37,44 @@ public class crearModificarClienteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProvinciaNegocio provinciaDao = new ProvinciaNegocio();
-        ArrayList<Provincia> listadoProvincias = (ArrayList<Provincia>) provinciaDao.getListaProvincias();
+		
+        ProvinciaNegocio provNegocio = new ProvinciaNegocio();
+        ArrayList<Provincia> listadoProvincias = (ArrayList<Provincia>) provNegocio.getListaProvincias();
         request.setAttribute("listadoProvincias", listadoProvincias);
+        
 		if (request.getParameter("btnModificar") != null && request.getParameter("btnModificar").toString().equals("MODIFICAR")) {
         	int idParaModificar = Integer.parseInt(request.getParameter("clienteId"));
-        	ClienteNegocio clienteDao = new ClienteNegocio();
-            Cliente cliente = clienteDao.buscar_con_id(idParaModificar);
+        	ClienteNegocio clienteNegocio = new ClienteNegocio();
+            Cliente cliente = clienteNegocio.buscar_con_id(idParaModificar);
             System.out.println("Id: " + idParaModificar);
             System.out.println("Cliente: " + cliente.toString());
             request.setAttribute("cliente", cliente);
             RequestDispatcher rd = request.getRequestDispatcher("/adminCrearModificarCliente.jsp");
             rd.forward(request, response);
+            
         } else if (request.getParameter("btnCrear") != null && request.getParameter("btnCrear").toString().equals("CREAR")) { 
             Cliente cliente = null;
             request.setAttribute("cliente", cliente);
             RequestDispatcher rd = request.getRequestDispatcher("/adminCrearModificarCliente.jsp");
-            rd.forward(request, response);		
+            rd.forward(request, response);
+            
         } else if (request.getParameter("crearModificarCliente").toString().equals("ModificarCliente")) {
         	int idParaModificar = Integer.parseInt(request.getParameter("idModificar"));
+        	
             // Validaci�n de campos
             if (validarCamposCliente(request)) {
                 // Procesamiento para modificar cliente
                 java.util.Date dateNacimiento = null;
                 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                
                 try {
                     dateNacimiento = formatoFecha.parse(request.getParameter("fechaNacimiento"));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                ClienteNegocio clienteDao = new ClienteNegocio();
-                Cliente cliente = clienteDao.buscar_con_id(idParaModificar);
+                
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
+                Cliente cliente = clienteNegocio.buscar_con_id(idParaModificar);
                 cliente.setDni(request.getParameter("dni"));
                 cliente.setCuil(request.getParameter("cuil"));
                 cliente.setNombre(request.getParameter("nombre"));
@@ -77,21 +84,32 @@ public class crearModificarClienteServlet extends HttpServlet {
                 cliente.setNacionalidad(request.getParameter("nacionalidad"));
                 cliente.setDireccion(request.getParameter("direccion"));
                 cliente.setLocalidad(request.getParameter("localidad"));
-                cliente.setProvincia(request.getParameter("provincia"));
+                
+                Provincia provSeleccionada = null;
+                for (Provincia provincia : listadoProvincias) {
+                    if (provincia.getNombre_provincia().equals(request.getParameter("provincia"))) {
+                    	provSeleccionada = provincia;
+                        break;
+                    }
+                }
+                cliente.setProvincia(provSeleccionada);
                 cliente.setCorreoElectronico(request.getParameter("email"));
                 
                 Telefono telefonoPrimario = null;
+                
                 try {
                 	telefonoPrimario = (cliente.getTelefonos()).get(0);
                 }  catch (IndexOutOfBoundsException e) {
                 	telefonoPrimario = new Telefono();
                 }
+                
                 Telefono telefonoSecundario = null;
                 try {
                 	telefonoSecundario = (cliente.getTelefonos()).get(1);
                 }  catch (IndexOutOfBoundsException e) {
                 	telefonoSecundario = new Telefono();
                 }
+                
                 telefonoPrimario.setTelefono(request.getParameter("telefonoPrimario"));
                 telefonoSecundario.setTelefono(request.getParameter("telefonoSecundario"));
                 ArrayList<Telefono> telefonos = new ArrayList<Telefono>();
@@ -102,7 +120,7 @@ public class crearModificarClienteServlet extends HttpServlet {
                 cliente.setEstado("True");
                 cliente.setId(idParaModificar);
 
-                clienteDao.ModificacionCliente(cliente);
+                clienteNegocio.ModificacionCliente(cliente);
                 RequestDispatcher rd = request.getRequestDispatcher("adminClientesServlet");
                 rd.forward(request, response);
                 
@@ -123,6 +141,7 @@ public class crearModificarClienteServlet extends HttpServlet {
             	       request.setAttribute("errorMessage", "DNI duplicado");
             	       RequestDispatcher rd = request.getRequestDispatcher("/DniDuplicadoError.jsp");
             	       rd.forward(request, response);
+            	   }
             	
             	
                 // Procesamiento para agregar cliente
@@ -144,7 +163,16 @@ public class crearModificarClienteServlet extends HttpServlet {
                 cliente.setNacionalidad(request.getParameter("nacionalidad"));
                 cliente.setDireccion(request.getParameter("direccion"));
                 cliente.setLocalidad(request.getParameter("localidad"));
-                cliente.setProvincia(request.getParameter("provincia"));
+                
+                Provincia provSeleccionada = null;
+                int idProv = Integer.parseInt(request.getParameter("provincia"));
+                for (Provincia provincia : listadoProvincias) {
+                    if (provincia.getId_provincia() == idProv) {
+                    	provSeleccionada = provincia;
+                        break;
+                    }
+                }
+                cliente.setProvincia(provSeleccionada);
                 cliente.setCorreoElectronico(request.getParameter("email"));
                 
 
@@ -167,14 +195,14 @@ public class crearModificarClienteServlet extends HttpServlet {
             } else {
                 // Manejo de error: campos incompletos o inv�lidos
                 // Podr�as redirigir a un JSP de error o mostrar un mensaje adecuado
-            	System.out.println("Se fue de viaje por que es una cacota!!!");
+            	System.out.println("Se fue de viaje por que es una cacota1!!!");
             }
 
         }
         else {
         	System.out.println("Se fue de viaje por que es una cacota!!!");
         }
-            }
+            
         
 
 	}
