@@ -32,12 +32,6 @@ public class CuentaDao implements iCuentaDao{
 
 	
 	public int modificarMontoACuenta(float montoNuevo,  int id_cuenta) {
-		 try {
-		        Class.forName("com.mysql.jdbc.Driver");
-		    } catch (ClassNotFoundException e) {
-		        e.printStackTrace();
-		        return 0;
-		    }
 		
 		    Connection conexion = null;
 		    PreparedStatement pst = null;
@@ -74,11 +68,7 @@ public class CuentaDao implements iCuentaDao{
 	}
 	
 	public List<Cuenta> getListaCuentasPorCliente(int id_cliente) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -113,12 +103,6 @@ public class CuentaDao implements iCuentaDao{
 	}
 
 	public ArrayList<Cuenta> Listar() {
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -184,11 +168,6 @@ public class CuentaDao implements iCuentaDao{
 	}
 	
 	public Cuenta buscar_con_id(int id) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -225,11 +204,6 @@ public class CuentaDao implements iCuentaDao{
 	}
 	
 	public ArrayList<Cuenta> ListarConEstadoFalse() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -278,11 +252,6 @@ public class CuentaDao implements iCuentaDao{
 	}
 	
 	public ArrayList<Cuenta> ListarConEstadoTrue() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -341,11 +310,6 @@ public class CuentaDao implements iCuentaDao{
 		int cuentasActuales = cuentasDelCliente(cuentaNueva.getCliente().getId());
 	    
 		if(cuentasActuales < maximoCuentasPorCliente && cliente != null){
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
 			
 			Connection conexion = null;
 			PreparedStatement statement;
@@ -399,13 +363,6 @@ public class CuentaDao implements iCuentaDao{
 	}
 	
 	public int BajaLogicaCuenta(int idCuentaBaja) {
-		
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
 	
 	    Connection conexion = null;
 	    PreparedStatement pst = null;
@@ -442,13 +399,6 @@ public class CuentaDao implements iCuentaDao{
 	}	
 	
 	public int AltaLogicaCuenta(int idCuentaAlta) {
-		
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
 	
 	    Connection conexion = null;
 	    PreparedStatement pst = null;
@@ -484,13 +434,6 @@ public class CuentaDao implements iCuentaDao{
 	}	
 	    
 	public long ModificarCuenta(Cuenta cuentaModificar) {
-	
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		}catch(ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return 0;
-		}
 		
 	    Connection conexion = null;
 	    PreparedStatement statement = null;
@@ -530,12 +473,6 @@ public class CuentaDao implements iCuentaDao{
 	}		
 		      
 	public long generarCbu() {
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
 
 	    Connection conexion = null;
 	    PreparedStatement statement = null;
@@ -581,12 +518,6 @@ public class CuentaDao implements iCuentaDao{
 	}
    
 	public int cantidadRegistros() {
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
 
 	    Connection conexion = null;
 	    PreparedStatement statement = null;
@@ -631,13 +562,7 @@ public class CuentaDao implements iCuentaDao{
 	}
  
 	public long generarNumeroCuenta() {
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
-
+		
 	    Connection conexion = null;
 	    PreparedStatement statement = null;
 	    ResultSet resultSet = null;
@@ -700,12 +625,6 @@ public class CuentaDao implements iCuentaDao{
 	}
 	
 	public int cuentasDelCliente(int idCuenta) {
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
 
 	    Connection conexion = null;
 	    PreparedStatement statement = null;

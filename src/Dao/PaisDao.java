@@ -16,11 +16,6 @@ public class PaisDao implements iPaisDao{
 	private static final String selectAllPais = "SELECT * FROM paises";
 
 	public Pais getPaisConId(int id_pais) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -59,12 +54,6 @@ public class PaisDao implements iPaisDao{
 	}
 
 	public ArrayList<Pais> getListaPaises() {
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		Connection conexion = null;
 		PreparedStatement statement;

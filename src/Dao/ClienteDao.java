@@ -26,11 +26,6 @@ public class ClienteDao implements iClienteDao{
 
 
     public int eliminarCliente(int id_cliente_borrar){
-		try {
-				Class.forName("com.mysql.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
 
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -77,11 +72,6 @@ public class ClienteDao implements iClienteDao{
 
     @Override
 	public int agregarCliente(Cliente clienteNuevo) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -236,12 +226,6 @@ public class ClienteDao implements iClienteDao{
 	@Override
 	public ArrayList<Cliente> Listar() {
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -281,11 +265,7 @@ public class ClienteDao implements iClienteDao{
 	
 	@Override
 	public ArrayList<Cliente> ListarConEstadoFalse() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -327,11 +307,7 @@ public class ClienteDao implements iClienteDao{
 	}
 	
 	public ArrayList<Cliente> ListarConEstadoTrue() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -374,13 +350,7 @@ public class ClienteDao implements iClienteDao{
 	
 	@Override
 	public int BajaLogicaCliente(int idClienteBaja) {
-	
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
+
 	
 	    Connection conexion = null;
 	    PreparedStatement pst = null;
@@ -417,13 +387,6 @@ public class ClienteDao implements iClienteDao{
 	
 	@Override
 	public int ModificacionCliente(Cliente clienteModificar) {
-		
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
 	
 	    Connection conexion = null;
 	    PreparedStatement statement = null;
@@ -483,13 +446,6 @@ public class ClienteDao implements iClienteDao{
 	}
 
 	public int AltaLogicaCliente(int idClienteAlta) {
-		
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
 	
 	    Connection conexion = null;
 	    PreparedStatement pst = null;
@@ -526,13 +482,6 @@ public class ClienteDao implements iClienteDao{
 
 	public ArrayList<Integer> listarIdClientes() {
 	    ArrayList<Integer> listaIdClientes = new ArrayList<>();
-	    
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return listaIdClientes; 
-	    }
 
 	    Connection conexion = null;
 	    PreparedStatement statement = null;
@@ -582,13 +531,12 @@ public class ClienteDao implements iClienteDao{
         ResultSet rs = null;
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
             conexion = conexionDB.getConnection();
             ps = conexion.prepareStatement(checkDniQuery);
             ps.setString(1, dni);
             rs = ps.executeQuery();
             exists = rs.next();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
@@ -597,11 +545,6 @@ public class ClienteDao implements iClienteDao{
         }
 
         return exists;
-
-	
-	
-	
-	
 	
 }
     }

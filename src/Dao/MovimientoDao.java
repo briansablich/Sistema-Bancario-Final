@@ -22,11 +22,6 @@ public class MovimientoDao implements iMovimientoDao {
 			
 	
 	public int agregarPrestamoAMovimiento(Prestamo prestamoAprobado) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		CuentaDao cDao = new CuentaDao();
 		Cuenta cuentaAfectada = new Cuenta();
@@ -93,11 +88,7 @@ public class MovimientoDao implements iMovimientoDao {
 	}
 	
 	public ArrayList<Movimiento> ListarMovimientosPorCuenta(int id_cuenta) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -132,11 +123,7 @@ public class MovimientoDao implements iMovimientoDao {
 	}
 	
 	public ArrayList<Movimiento> Listar() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;

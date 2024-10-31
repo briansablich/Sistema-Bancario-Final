@@ -19,11 +19,6 @@ public class ProvinciaDao implements iProvinciaDao {
 
 	@Override
 	public Provincia getProvinciaConId(int id_provincia) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -63,12 +58,6 @@ public class ProvinciaDao implements iProvinciaDao {
 
 	@Override
 	public ArrayList<Provincia> getListaProvincias() {
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -122,12 +111,6 @@ public class ProvinciaDao implements iProvinciaDao {
 	}
 	
 	public List<Provincia> getListaProvinciasConCantidadDeClientes() {
-			
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
 			
 			Connection conexion = null;
 			PreparedStatement statement;

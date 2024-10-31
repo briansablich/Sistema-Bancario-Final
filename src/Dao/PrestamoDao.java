@@ -24,12 +24,7 @@ public class PrestamoDao implements iPrestamoDao{
 	private static final String selectPrestamoPorId = "SELECT * FROM prestamos WHERE id_prestamo = ?";
 
 	public int agregarPrestamo(Prestamo prestamoNuevo) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		int filas = 0;
@@ -84,11 +79,7 @@ public class PrestamoDao implements iPrestamoDao{
 	}	
 	
 	public ArrayList<Prestamo> Listar() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -121,11 +112,7 @@ public class PrestamoDao implements iPrestamoDao{
 	}
 
 	public ArrayList<Prestamo> ListarPorIdCliente(int id_cliente) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -163,8 +150,7 @@ public class PrestamoDao implements iPrestamoDao{
 		Prestamo prestamo = null;
 		
 		try {
-			
-			
+				
 			ClienteDao cDao = new ClienteDao();
 	
 			prestamo = new Prestamo();
@@ -187,11 +173,6 @@ public class PrestamoDao implements iPrestamoDao{
 	}
 
 	public int rechazarPrestamo(int id_cliente_rechazar){
-		try {
-				Class.forName("com.mysql.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
 	
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -237,11 +218,7 @@ public class PrestamoDao implements iPrestamoDao{
 	}
 
 	public int aprobarPrestamo(int id_prestamo_aprobar, int id_cuenta_destino){
-		try {
-				Class.forName("com.mysql.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		int filas = 0;
@@ -291,11 +268,6 @@ public class PrestamoDao implements iPrestamoDao{
 	}
 
 	public Prestamo buscarPrestamoACuentaDestino (int id_cuenta_destino, int id_prestamo) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 
 		Prestamo prestamo = new Prestamo();
 		Connection conexion = null;
@@ -345,11 +317,6 @@ public class PrestamoDao implements iPrestamoDao{
 	}
 	
 	public Prestamo buscarPrestamoPorId (int id_prestamo) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 
 		Prestamo prestamo = new Prestamo();
 		Connection conexion = null;
@@ -398,11 +365,7 @@ public class PrestamoDao implements iPrestamoDao{
 	}
 	
 	public int finalizarPrestamo(){
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-		}
+
 		Calendar fechahoy = Calendar.getInstance();
 		Calendar fechaVencimiento = Calendar.getInstance();
 	

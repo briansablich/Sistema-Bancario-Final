@@ -93,11 +93,6 @@ public class PagoDao implements iPagoDao{
 	
 	//agrega el registro para pagar luego
 	public int agregarPagoABase(Prestamo prestamoNuevo) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -163,11 +158,7 @@ public class PagoDao implements iPagoDao{
 	}	
 	
 	public ArrayList<Pago> ListarPorIdPrestamo(int id_prestamo) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;

@@ -18,13 +18,6 @@ public class TelefonoDao implements iTelefonoDao {
 	
     public int AgregarTelefonos(String telefono1, String telefono2, int id_cliente) {
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return 0;
-        }
-
         Connection conexion = null;
         PreparedStatement statement = null;
         int filas = 0;
@@ -64,13 +57,6 @@ public class TelefonoDao implements iTelefonoDao {
     }
 
     public int ModificacionTelefonos(String telefonoModificado1, String telefonoModificado2, int id_cliente) {
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return 0;
-        }
 
         Connection conexion = null;
         PreparedStatement statement = null;
@@ -112,11 +98,6 @@ public class TelefonoDao implements iTelefonoDao {
 
     @Override
 	public ArrayList<Telefono> Listar_de(int id_cliente) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 		Connection conexion = null;
 		PreparedStatement statement;
@@ -156,13 +137,6 @@ public class TelefonoDao implements iTelefonoDao {
     
     public int AgregarTelefono(int id_cliente, String telefono) {
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return 0;
-        }
-
         Connection conexion = null;
         PreparedStatement statement = null;
         int filas = 0;
@@ -200,13 +174,6 @@ public class TelefonoDao implements iTelefonoDao {
     }
     
     public int ModificarTelefono(int id, String telefono) {
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return 0;
-        }
 
         Connection conexion = null;
         PreparedStatement statement = null;

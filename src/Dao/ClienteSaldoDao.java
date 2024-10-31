@@ -11,12 +11,6 @@ public class ClienteSaldoDao implements iClienteSaldoDao{
     private static final String sp_buscar_saldos_menores  = "CALL sp_buscar_saldos_menores(?)";
 
     public ArrayList<ClienteSaldo> obtenerClientesConSaldoMayor(float saldoAComparar, boolean esMayor) {
-    	        
-    	try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
     	
     	Connection conexion = null;
 		CallableStatement statement;

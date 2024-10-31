@@ -15,13 +15,7 @@ public class TipoMovimientoDao implements iTipoMovimientoDao{
 	}
 
 	public TipoMovimiento getTipoMovimiento(int idTipoMovimiento) {
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
+
 		Connection conexion = null;
 		PreparedStatement statement;
 		ResultSet resultSet;
