@@ -83,7 +83,7 @@ VALUES ('45678912', '23-45678912-1', 'Carlos', 'Sánchez', 'Masculino', 'Argenti
 
 -- ------------------INSERTS USUARIOS CLIENTES (CONTRASEÑAS SIMPLIFICADAS, POR DEFECTO VAN A IR CON EL DNI)
 INSERT INTO `bd_banco`.`usuarios` (`usuario`, `contrasenia`, `acceso`, `id_cliente`, `estado`)
-VALUES ("juan.perez@example.com", "12345678", "Cliente", 1, "True"),
+VALUES ("juan.perez@example.com", "123", "Cliente", 1, "True"),
 ("maria.gomez@example.com", "1234", "Cliente", 2, "True"),
 ("carlos.sanchez@example.com", "1234", "Cliente", 3, "True");
 
@@ -156,11 +156,15 @@ INSERT INTO movimientos (importe, id_tipo_movimiento, id_cuenta_origen, id_cuent
 VALUES 
 (100.00, 1, 1, 2),
 (200.50, 2, 2, 3),
-(50.75, 1, 3, 4),
-(300.20, 2, 4, 5),
-(400.00, 1, 5, 6),
-(150.35, 2, 6, 7),
-(250.45, 1, 7, 8),
-(350.60, 2, 8, 9),
-(450.75, 1, 9, 10),
-(500.90, 2, 10, 1);
+(50.75, 1, 3, 2),
+(300.20, 2, 2, 1),
+(400.00, 1, 3, 1);
+
+-------- INSERTS TELEFONOS
+
+INSERT INTO telefonos (telefono, id_cliente) VALUES ('123456789', 1);
+INSERT INTO telefonos (telefono, id_cliente) VALUES ('987654321', 1);
+INSERT INTO telefonos (telefono, id_cliente) VALUES ('555111222', 2);
+INSERT INTO telefonos (telefono, id_cliente) VALUES ('555333444', 2);
+INSERT INTO telefonos (telefono, id_cliente) VALUES ('777888999', 3);
+INSERT INTO telefonos (telefono, id_cliente) VALUES ('333222111', 3);
