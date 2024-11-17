@@ -38,16 +38,19 @@ public class crearModificarClienteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+			//SE CARGA EL LISTADO DE PROVINCIAS
         ProvinciaNegocio provNegocio = new ProvinciaNegocio();
         ArrayList<Provincia> listadoProvincias = (ArrayList<Provincia>) provNegocio.getListaProvincias();
         request.setAttribute("listadoProvincias", listadoProvincias);
         
+        	
 		if (request.getParameter("btnModificar") != null && request.getParameter("btnModificar").toString().equals("MODIFICAR")) {
+				//ENTRA AL FORM PARA MODIFICAR
         	int idParaModificar = Integer.parseInt(request.getParameter("clienteId"));
         	ClienteNegocio clienteNegocio = new ClienteNegocio();
             Cliente cliente = clienteNegocio.buscar_con_id(idParaModificar);
-            System.out.println("Id: " + idParaModificar);
-            System.out.println("Cliente: " + cliente.toString());
+            /*System.out.println("Id: " + idParaModificar);
+            System.out.println("Cliente: " + cliente.toString());*/
             request.setAttribute("cliente", cliente);
             RequestDispatcher rd = request.getRequestDispatcher("/adminCrearModificarCliente.jsp");
             rd.forward(request, response);
@@ -59,9 +62,10 @@ public class crearModificarClienteServlet extends HttpServlet {
             rd.forward(request, response);
             
         } else if (request.getParameter("crearModificarCliente").toString().equals("ModificarCliente")) {
+        		//BOTON DE MODIFICAR EN EL FORM DE MODIFICAR - ENVIA LOS CAMBIOS
         	int idParaModificar = Integer.parseInt(request.getParameter("idModificar"));
         	
-            // Validaci�n de campos
+            // Validacion de campos
             if (validarCamposCliente(request)) {
                 // Procesamiento para modificar cliente
                 java.util.Date dateNacimiento = null;

@@ -28,31 +28,35 @@
            		<div class="form-group">    
 		
 				<label>DNI</label>
-				<input type="text" name="dni" id="dni" <% if (cAux != null) { %> value="<%= cAux.getDni() %>" <% } %> >
+				<input type="text" name="dni" id="dni" <% if (cAux != null) { %> value="<%= cAux.getDni() %>" <% } %> required >
 				<br>
 				<label>CUIL</label>
-				<input type="text" name="cuil" id="cuil" <% if (cAux != null) { %> value="<%= cAux.getCuil() %>" <% } %>>
+				<input type="text" name="cuil" id="cuil" <% if (cAux != null) { %> value="<%= cAux.getCuil() %>" <% } %> required>
 				<br>
 				<label>Nombre</label>
-				<input type="text" name="nombre" id="nombre" <% if (cAux != null) { %> value="<%= cAux.getNombre() %>" <% } %>>
+				<input type="text" name="nombre" id="nombre" <% if (cAux != null) { %> value="<%= cAux.getNombre() %>" <% } %> required>
 				<br>
 				<label>Apellido</label>
-				<input type="text" name="apellido" id="apellido" <% if (cAux != null) { %> value="<%= cAux.getApellido() %>" <% } %>>
+				<input type="text" name="apellido" id="apellido" <% if (cAux != null) { %> value="<%= cAux.getApellido() %>" <% } %> required>
 				<br>
 				<label>Sexo</label>
-				<input type="text" name="sexo" id="sexo" <% if (cAux != null) { %> value="<%= cAux.getSexo() %>" <% } %>>
+					<select name="sexo" id="sexo">
+						<option value="Masculino" <% if (cAux != null) { if (cAux.getSexo().equals(Cliente.SEXO.Masculino)) { %>selected <% } } else { %> selected <%} %>>Masculino</option>
+						<option value="Femenino" <% if (cAux != null) { if (cAux.getSexo().equals(Cliente.SEXO.Femenino)) { %> selected <% } }%>>Femenino</option>
+					</select>
+				<!-- <input type="text" name="sexo" id="sexo" <% if (cAux != null) { %> value="<%= cAux.getSexo() %>" <% } %> required> -->
 				<br>
 				<label>Nacionalidad</label>
-				<input type="text" name="nacionalidad" id="nacionalidad" <% if (cAux != null) { %> value="<%= cAux.getNacionalidad() %>" <% } %>>
+				<input type="text" name="nacionalidad" id="nacionalidad" <% if (cAux != null) { %> value="<%= cAux.getNacionalidad() %>" <% } %> required>
 				<br>
 				<label>Fecha Nacimiento</label>
-				<input type="text" name="fechaNacimiento" id="fechaNacimiento" <% if (cAux != null) { %> value="<%= cAux.getFechaNacimiento().toString() %>" <% } %>>
+				<input type="text" name="fechaNacimiento" id="fechaNacimiento" <% if (cAux != null) { %> value="<%= cAux.getFechaNacimiento().toString() %>" <% } %> required>
 				<br>
 				<label>Direccion</label>
-				<input type="text" name="direccion" id="direccion" <% if (cAux != null) { %> value="<%= cAux.getDireccion() %>" <% } %>>
+				<input type="text" name="direccion" id="direccion" <% if (cAux != null) { %> value="<%= cAux.getDireccion() %>" <% } %> required>
 				<br>
 				<label>Localidad</label>
-				<input type="text" name="localidad" id="localidad" <% if (cAux != null) { %> value="<%= cAux.getLocalidad() %>" <% } %>>
+				<input type="text" name="localidad" id="localidad" <% if (cAux != null) { %> value="<%= cAux.getLocalidad() %>" <% } %> required>
 				<br>
 				
 				<!-------------------  DESPLEGABLE DE PROVINCIA  -------------------->
@@ -73,17 +77,17 @@
 		 -->
 				<br>
 				<label>E-mail</label>
-				<input type="text" name="email" id="email" <% if (cAux != null) { %> value="<%= cAux.getCorreoElectronico() %>" <% } %>>
+				<input type="text" name="email" id="email" <% if (cAux != null) { %> value="<%= cAux.getCorreoElectronico() %>" <% } %> required>
 				<br>
 				<label>Telefono primario</label>
-				<input type="text" name="telefonoPrimario" id="telefonoPrimario" <% if (cAux != null && !(cAux.getTelefonos()).isEmpty()) { %> value="<%= (cAux.getTelefonos()).get(0) %>" <% } %>>
+				<input type="text" name="telefonoPrimario" id="telefonoPrimario" <% if (cAux != null && !(cAux.getTelefonos()).isEmpty()) { %> value="<%= (cAux.getTelefonos()).get(0) %>" <% } %> required>
 				<br>
 				<label>Telefono secundario</label>
-				<input type="text" name="telefonoSecundario" id="telefonoSecundario" <% if (cAux != null && !(cAux.getTelefonos()).isEmpty()) { %> value="<%= (cAux.getTelefonos()).get(1) %>" <% } %>>
+				<input type="text" name="telefonoSecundario" id="telefonoSecundario" <% if (cAux != null && !(cAux.getTelefonos()).isEmpty()) { %> value="<%= (cAux.getTelefonos()).get(1) %>" <% } %> required>
 				<br>
 
 				<% if(request.getAttribute("cliente") != null){ %>
-					<button type="submit" class="btn btn-primary" name="crearModificarCliente" id="crearModificarCliente" value="ModificarCliente" >Guardar</button>
+					<button type="submit" class="btn btn-primary" name="crearModificarCliente" id="crearModificarCliente" value="ModificarCliente" >Modificar</button>
 					<input type="hidden" name="idModificar" value="<%= cAux.getId() %>" />
 				<%} else { %>
 					<button type="submit" class="btn btn-primary" name="crearModificarCliente" id="crearModificarCliente" value="CrearCliente">Guardar</button>
