@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import Dominio.Cliente;
-import Dominio.Pais;
-import Dominio.Provincia;
 import Dominio.Telefono;
 import Dominio.Usuario;
 
@@ -98,7 +96,7 @@ public class ClienteDao implements iClienteDao{
 			statement.setString(6, clienteNuevo.getNacionalidad());
 			statement.setDate(7, fechaSql);
 			statement.setString(8, clienteNuevo.getDireccion());
-			statement.setString(9, clienteNuevo.getLocalidad());
+			statement.setInt(9, clienteNuevo.getLocalidad().getId_localidad());
 			statement.setInt(10, clienteNuevo.getProvincia().getId_provincia());
 			statement.setString(11, clienteNuevo.getCorreoElectronico());
 			statement.setString(12, clienteNuevo.getEstado().name());
@@ -199,6 +197,7 @@ public class ClienteDao implements iClienteDao{
 		Cliente cliente = null;
 		TelefonoDao telefonoDao = new TelefonoDao();
 		ProvinciaDao provDao = new ProvinciaDao();
+		LocalidadDao locDao = new LocalidadDao();
 		
 		try {
 			cliente = new Cliente();
@@ -211,7 +210,7 @@ public class ClienteDao implements iClienteDao{
 			cliente.setNacionalidad(resultSet.getString("nacionalidad"));
 			cliente.setFechaNacimiento(resultSet.getDate("fecha_nacimiento"));
 			cliente.setDireccion(resultSet.getString("direccion"));
-			cliente.setLocalidad(resultSet.getString("localidad"));
+			cliente.setLocalidad(locDao.getLocalidadConId(resultSet.getInt("localidad")));
 			cliente.setProvincia(provDao.getProvinciaConId(resultSet.getInt("provincia")));
 			cliente.setCorreoElectronico(resultSet.getString("correo_electronico"));
 			cliente.setTelefonos(telefonoDao.Listar_de(cliente.getId()));
@@ -409,7 +408,7 @@ public class ClienteDao implements iClienteDao{
 			statement.setString(6, clienteModificar.getNacionalidad());
 			statement.setDate(7, fechaSql);
 			statement.setString(8, clienteModificar.getDireccion());
-			statement.setString(9, clienteModificar.getLocalidad());
+			statement.setInt(9, clienteModificar.getLocalidad().getId_localidad());
 			statement.setInt(10, clienteModificar.getProvincia().getId_provincia());
 			statement.setString(11, clienteModificar.getCorreoElectronico());
 			statement.setString(12, clienteModificar.getEstado().name());

@@ -19,7 +19,7 @@ public class Cliente {
 	private String nacionalidad;
 	private java.util.Date fechaNacimiento; 
 	private String direccion;
-	private String localidad;
+	private Localidad localidad;
 	private Provincia provincia;
 	private String correoElectronico;
 	private List<Telefono> telefonos;
@@ -85,10 +85,10 @@ public class Cliente {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public String getLocalidad() {
+	public Localidad getLocalidad() {
 		return localidad;
 	}
-	public void setLocalidad(String localidad) {
+	public void setLocalidad(Localidad localidad) {
 		this.localidad = localidad;
 	}
 	public Provincia getProvincia() {
@@ -148,7 +148,7 @@ public class Cliente {
 	}
 	
 	public Cliente(String dni, String cuil, String nombre, String apellido, SEXO sexo, String nacionalidad,
-			Date fechaNacimiento, String direccion, String localidad, Provincia provincia, String correoElectronico,
+			Date fechaNacimiento, String direccion, Localidad localidad, Provincia provincia, String correoElectronico,
 			ArrayList<Telefono> telefonos, ArrayList<Cuenta> cuentas, ESTADO estado) {
 		super();
 		this.dni = dni;

@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="Dominio.Cliente"%>
 <%@ page import="Dominio.Provincia"%>
+<%@ page import="Dominio.Localidad"%>
 <%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -55,9 +56,6 @@
 				<label>Direccion</label>
 				<input type="text" name="direccion" id="direccion" <% if (cAux != null) { %> value="<%= cAux.getDireccion() %>" <% } %> required>
 				<br>
-				<label>Localidad</label>
-				<input type="text" name="localidad" id="localidad" <% if (cAux != null) { %> value="<%= cAux.getLocalidad() %>" <% } %> required>
-				<br>
 				
 				<!-------------------  DESPLEGABLE DE PROVINCIA  -------------------->
 				<label>Provincia</label>
@@ -71,10 +69,21 @@
 					<%}
 					}%>
 				</select>
+				<br>
 
-		<!-- 
-		<input type="text" name="provincia" id="provincia" <% if (cAux != null) { %> value="<%= cAux.getProvincia() %>" <% } %>>
-		 -->
+				<label>Localidad</label>
+					<select>
+						<% if(request.getAttribute("listadoLocalidades") != null){ 
+						List<Localidad> listadoLocalidades =  (List<Localidad>)request.getAttribute("listadoLocalidades");
+						for (Localidad l : listadoLocalidades){
+					%>	
+					<option value="<%= l.getId_localidad()%>"  <% if (cAux != null && cAux.getLocalidad().getId_localidad()== l.getId_localidad()){ %> selected <%} %>><%= l.toString() %> </option>
+			
+					<%}
+					}%>
+					</select>
+				<!-- <input type="text" name="localidad" id="localidad" <% if (cAux != null) { %> value="<%= cAux.getLocalidad() %>" <% } %> required> -->
+
 				<br>
 				<label>E-mail</label>
 				<input type="text" name="email" id="email" <% if (cAux != null) { %> value="<%= cAux.getCorreoElectronico() %>" <% } %> required>

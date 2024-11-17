@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dominio.Cliente;
+import Dominio.Localidad;
 import Dominio.Provincia;
 import Dominio.Telefono;
 import Negocio.ClienteNegocio;
+import Negocio.LocalidadNegocio;
 import Negocio.ProvinciaNegocio;
 
 /**
@@ -42,6 +44,11 @@ public class crearModificarClienteServlet extends HttpServlet {
         ProvinciaNegocio provNegocio = new ProvinciaNegocio();
         ArrayList<Provincia> listadoProvincias = (ArrayList<Provincia>) provNegocio.getListaProvincias();
         request.setAttribute("listadoProvincias", listadoProvincias);
+        
+      //SE CARGA EL LISTADO DE TODAS LAS LOCALIDADES
+        LocalidadNegocio locNegocio = new LocalidadNegocio();
+        ArrayList<Localidad> listadoLocalidades = (ArrayList<Localidad>) locNegocio.getTodasLasLocalidades();
+        request.setAttribute("listadoLocalidades", listadoLocalidades);
         
         	
 		if (request.getParameter("btnModificar") != null && request.getParameter("btnModificar").toString().equals("MODIFICAR")) {
@@ -78,6 +85,7 @@ public class crearModificarClienteServlet extends HttpServlet {
                 }
                 
                 ClienteNegocio clienteNegocio = new ClienteNegocio();
+                LocalidadNegocio locNeg = new LocalidadNegocio();
                 Cliente cliente = clienteNegocio.buscar_con_id(idParaModificar);
                 cliente.setDni(request.getParameter("dni"));
                 cliente.setCuil(request.getParameter("cuil"));
@@ -87,7 +95,8 @@ public class crearModificarClienteServlet extends HttpServlet {
                 cliente.setFechaNacimiento(dateNacimiento);
                 cliente.setNacionalidad(request.getParameter("nacionalidad"));
                 cliente.setDireccion(request.getParameter("direccion"));
-                cliente.setLocalidad(request.getParameter("localidad"));
+                int idLocalidad = Integer.parseInt(request.getParameter("localidad"));
+                cliente.setLocalidad(locNeg.getLocalidadConId(idLocalidad));
                 
                 Provincia provSeleccionada = null;
                 for (Provincia provincia : listadoProvincias) {
@@ -157,6 +166,7 @@ public class crearModificarClienteServlet extends HttpServlet {
                     e.printStackTrace();
                 }
 
+                LocalidadNegocio locNeg = new LocalidadNegocio();
                 Cliente cliente = new Cliente();
                 cliente.setDni(request.getParameter("dni"));
                 cliente.setCuil(request.getParameter("cuil"));
@@ -166,7 +176,8 @@ public class crearModificarClienteServlet extends HttpServlet {
                 cliente.setFechaNacimiento(dateNacimiento);
                 cliente.setNacionalidad(request.getParameter("nacionalidad"));
                 cliente.setDireccion(request.getParameter("direccion"));
-                cliente.setLocalidad(request.getParameter("localidad"));
+                int idLocalidad = Integer.parseInt(request.getParameter("localidad"));
+                cliente.setLocalidad(locNeg.getLocalidadConId(idLocalidad));
                 
                 Provincia provSeleccionada = null;
                 int idProv = Integer.parseInt(request.getParameter("provincia"));
