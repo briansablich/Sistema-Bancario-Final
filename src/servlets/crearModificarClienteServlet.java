@@ -62,7 +62,8 @@ public class crearModificarClienteServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/adminCrearModificarCliente.jsp");
             rd.forward(request, response);
             
-        } else if (request.getParameter("btnCrear") != null && request.getParameter("btnCrear").toString().equals("CREAR")) { 
+        } else if (request.getParameter("btnCrear") != null && request.getParameter("btnCrear").toString().equals("CREAR")) {
+        		//ENTRA AL FORM PARA CREAR
             Cliente cliente = null;
             request.setAttribute("cliente", cliente);
             RequestDispatcher rd = request.getRequestDispatcher("/adminCrearModificarCliente.jsp");
@@ -136,16 +137,11 @@ public class crearModificarClienteServlet extends HttpServlet {
                 clienteNegocio.ModificacionCliente(cliente);
                 RequestDispatcher rd = request.getRequestDispatcher("adminClientesServlet");
                 rd.forward(request, response);
-                
-            } else {
-
             }
 
         } else if (request.getParameter("crearModificarCliente").toString().equals("CrearCliente")) {
             int filasAgregadas = 0;
         	System.out.println("Entre a crear!!!");
-            // Validaci�n de campos
-            if (validarCamposCliente(request)) {
             	// Verificar si el DNI ya existe
             	ClienteNegocio clienteDao = new ClienteNegocio();
             	   String dni = request.getParameter("dni");
@@ -212,14 +208,6 @@ public class crearModificarClienteServlet extends HttpServlet {
                 // Podr�as redirigir a un JSP de error o mostrar un mensaje adecuado
             	System.out.println("Se fue de viaje por que es una cacota1!!!");
             }
-
-        }
-        else {
-        	System.out.println("Se fue de viaje por que es una cacota!!!");
-        }
-            
-        
-
 	}
 
 	/**

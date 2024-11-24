@@ -72,7 +72,7 @@
 				<br>
 
 				<label>Localidad</label>
-					<select>
+					<select name="localidad" id="localidad">
 						<% if(request.getAttribute("listadoLocalidades") != null){ 
 						List<Localidad> listadoLocalidades =  (List<Localidad>)request.getAttribute("listadoLocalidades");
 						for (Localidad l : listadoLocalidades){
