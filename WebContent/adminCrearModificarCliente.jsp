@@ -51,7 +51,7 @@
 				<input type="text" name="nacionalidad" id="nacionalidad" <% if (cAux != null) { %> value="<%= cAux.getNacionalidad() %>" <% } %> required>
 				<br>
 				<label>Fecha Nacimiento</label>
-				<input type="text" name="fechaNacimiento" id="fechaNacimiento" <% if (cAux != null) { %> value="<%= cAux.getFechaNacimiento().toString() %>" <% } %> required>
+				<input type="date" name="fechaNacimiento" id="fechaNacimiento" <% if (cAux != null) { %> value="<%= cAux.getFechaNacimiento().toString() %>" <% } %> required>
 				<br>
 				<label>Direccion</label>
 				<input type="text" name="direccion" id="direccion" <% if (cAux != null) { %> value="<%= cAux.getDireccion() %>" <% } %> required>
