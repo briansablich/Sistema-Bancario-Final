@@ -76,10 +76,12 @@
 						<% if(request.getAttribute("listadoLocalidades") != null){ 
 						List<Localidad> listadoLocalidades =  (List<Localidad>)request.getAttribute("listadoLocalidades");
 						for (Localidad l : listadoLocalidades){
+							if(cAux != null){
+								if(l.getProvincia().getId_provincia() == cAux.getProvincia().getId_provincia()){
 					%>	
 					<option value="<%= l.getId_localidad()%>"  <% if (cAux != null && cAux.getLocalidad().getId_localidad()== l.getId_localidad()){ %> selected <%} %>><%= l.toString() %> </option>
 			
-					<%}
+					<%}}}
 					}%>
 					</select>
 				<!-- <input type="text" name="localidad" id="localidad" <% if (cAux != null) { %> value="<%= cAux.getLocalidad() %>" <% } %> required> -->
@@ -123,27 +125,44 @@
 		        }<%= (i < listadoLocalidades.size() - 1) ? "," : "" %>
 		        <% } %>
 	    	];
-        console.log(localidades);
 
-    // Agregar el evento al select de provincias
-    document.getElementById("provincia").addEventListener("change", function () {
-        const provinciaSeleccionada = this.value;
+         // Función para cargar las localidades según la provincia seleccionada
+         function cargarLocalidades(provinciaSeleccionada) {
+             // Filtrar localidades por la provincia seleccionada
+             const localidadesFiltradas = localidades.filter(l => l.id_provincia == provinciaSeleccionada);
 
-        // Filtrar localidades por la provincia seleccionada
-        const localidadesFiltradas = localidades.filter(l => l.id_provincia == provinciaSeleccionada);
+             // Limpiar el select de localidades
+             const localidadesSelect = document.getElementById("localidad");
+             localidadesSelect.innerHTML = ""; // Limpiar las opciones previas
 
-        // Limpiar el select de localidades
-        const localidadesSelect = document.getElementById("localidad");
-        localidadesSelect.innerHTML = "";
+             // Rellenar el select de localidades
+             localidadesFiltradas.forEach(localidad => {
+                 const option = document.createElement("option");
+                 option.value = localidad.id_localidad;
+                 option.textContent = localidad.nombre_localidad;
+                 localidadesSelect.appendChild(option);
+             <% if (cAux != null){%>
+	             	const localidadCAux = <%=cAux.getLocalidad().getId_localidad() %>;
+	             	if (localidadCAux == localidad.id_localidad){
+		             	option.selected = true;             		
+	             	}
+             <%}%>
+             });
+         }
 
-        // Rellenar el select de localidades
-        localidadesFiltradas.forEach(localidad => {
-            const option = document.createElement("option");
-            option.value = localidad.id_localidad;
-            option.textContent = localidad.nombre_localidad;
-            localidadesSelect.appendChild(option);
-        });
-    });
+         // Cargar localidades al cambiar la provincia
+         document.getElementById("provincia").addEventListener("change", function () {
+             const provinciaSeleccionada = this.value;
+             cargarLocalidades(provinciaSeleccionada);
+         });
+
+         // Cargar localidades por defecto al cargar la página, usando la provincia seleccionada
+         window.addEventListener("load", function () {
+             const provinciaSeleccionada = document.getElementById("provincia").value;
+             
+             
+             cargarLocalidades(provinciaSeleccionada); // Carga las localidades de la provincia seleccionada al inicio
+         });
     </script>
 
 </body>
