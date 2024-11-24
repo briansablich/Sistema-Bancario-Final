@@ -87,6 +87,7 @@ public class crearModificarClienteServlet extends HttpServlet {
                 
                 ClienteNegocio clienteNegocio = new ClienteNegocio();
                 LocalidadNegocio locNeg = new LocalidadNegocio();
+                ProvinciaNegocio provNeg = new ProvinciaNegocio();
                 Cliente cliente = clienteNegocio.buscar_con_id(idParaModificar);
                 cliente.setDni(request.getParameter("dni"));
                 cliente.setCuil(request.getParameter("cuil"));
@@ -96,18 +97,22 @@ public class crearModificarClienteServlet extends HttpServlet {
                 cliente.setFechaNacimiento(dateNacimiento);
                 cliente.setNacionalidad(request.getParameter("nacionalidad"));
                 cliente.setDireccion(request.getParameter("direccion"));
+                cliente.setCorreoElectronico(request.getParameter("email"));
+                
                 int idLocalidad = Integer.parseInt(request.getParameter("localidad"));
                 cliente.setLocalidad(locNeg.getLocalidadConId(idLocalidad));
                 
-                Provincia provSeleccionada = null;
-                for (Provincia provincia : listadoProvincias) {
-                    if (provincia.getNombre_provincia().equals(request.getParameter("provincia"))) {
-                    	provSeleccionada = provincia;
-                        break;
-                    }
-                }
-                cliente.setProvincia(provSeleccionada);
-                cliente.setCorreoElectronico(request.getParameter("email"));
+                int idProvincia = Integer.parseInt(request.getParameter("provincia"));
+                cliente.setProvincia(provNeg.getProvinciaConId(idProvincia));
+                
+//                Provincia provSeleccionada = null;
+//                for (Provincia provincia : listadoProvincias) {
+//                    if (provincia.getNombre_provincia().equals(request.getParameter("provincia"))) {
+//                    	provSeleccionada = provincia;
+//                        break;
+//                    }
+//                }
+//                cliente.setProvincia(provSeleccionada);
                 
                 Telefono telefonoPrimario = null;
                 
