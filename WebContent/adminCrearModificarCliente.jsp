@@ -108,6 +108,43 @@
 	
 	</form>
 
+	<script>
+			//SE CARGAN TODAS LAS LOCALIDADES
+		<% List<Localidad> listadoLocalidades =  (List<Localidad>)request.getAttribute("listadoLocalidades");%>
+			//SE AGREGA EL EVENTO CHANGE EN EL DESPLEGABLE DE PROVINCIA
+		 // Convertir el listado de localidades a JSON para que JavaScript pueda usarlo
+         const localidades = [
+	        <% for (int i = 0; i < listadoLocalidades.size(); i++) { 
+		            Localidad l = listadoLocalidades.get(i); %>
+		        {
+		            id_localidad: <%= l.getId_localidad() %>,
+		            nombre_localidad: "<%= l.getNombreLocalidad() %>",
+		            id_provincia: <%= l.getProvincia().getId_provincia() %>
+		        }<%= (i < listadoLocalidades.size() - 1) ? "," : "" %>
+		        <% } %>
+	    	];
+        console.log(localidades);
+
+    // Agregar el evento al select de provincias
+    document.getElementById("provincia").addEventListener("change", function () {
+        const provinciaSeleccionada = this.value;
+
+        // Filtrar localidades por la provincia seleccionada
+        const localidadesFiltradas = localidades.filter(l => l.id_provincia == provinciaSeleccionada);
+
+        // Limpiar el select de localidades
+        const localidadesSelect = document.getElementById("localidad");
+        localidadesSelect.innerHTML = "";
+
+        // Rellenar el select de localidades
+        localidadesFiltradas.forEach(localidad => {
+            const option = document.createElement("option");
+            option.value = localidad.id_localidad;
+            option.textContent = localidad.nombre_localidad;
+            localidadesSelect.appendChild(option);
+        });
+    });
+    </script>
 
 </body>
 </html>
