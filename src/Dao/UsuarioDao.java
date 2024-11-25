@@ -15,6 +15,7 @@ public class UsuarioDao implements iUsuarioDao {
 	
 	private static final String selectValidate = "SELECT `usuarios`.`id_usuario`, `usuarios`.`usuario`, `usuarios`.`contrasenia`, `usuarios`.`acceso`, `usuarios`.`id_cliente`, `usuarios`.`estado` FROM `bd_banco`.`usuarios` WHERE `usuarios`.`usuario` = ? AND `usuarios`.`contrasenia` = ?;";
 	private static final String insertUsuario = "INSERT INTO `bd_banco`.`usuarios`(usuario, contrasenia, acceso, id_cliente, estado) VALUES (?, ?, ?, ?, ?)";
+	private static final String cambioClave = "UPDATE usuarios SET contrasenia = ? WHERE usuario = ?";
 	
 	public int agregarUsuario(Usuario usuarioNuevo) {
 
@@ -181,6 +182,40 @@ public class UsuarioDao implements iUsuarioDao {
 			e.printStackTrace();
 		}
 		return usuario;
+	}
+
+	@Override
+	public boolean cambiarClave(String usuario, String contrasenia) {
+		
+		 Connection conexion = null;
+		 PreparedStatement statement = null;
+		    
+		    try {
+		        conexion = conexionDB.getConnection();
+		        statement = conexion.prepareStatement(cambioClave);
+		        statement.setString(1, contrasenia);
+		        statement.setString(2, usuario);
+		        statement.executeUpdate();
+		        
+		    } catch (SQLException e){
+				e.printStackTrace();
+				return false;
+				}
+		    
+			finally {
+				if(conexion != null)
+				{
+					try 
+					{
+						conexion.close();
+					}
+					catch (SQLException e) 
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+			return true;
 	}
 
 }

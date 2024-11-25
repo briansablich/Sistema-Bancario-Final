@@ -37,8 +37,6 @@ int idCuenta = Integer.parseInt(cuentaId);
 
 if (cuentaId!= null && !cuentaId.isEmpty()) {
 
-
-
     %>
     
     <p>ID de cuenta a Activar: <%= idCuenta %></p>
@@ -48,15 +46,6 @@ if (cuentaId!= null && !cuentaId.isEmpty()) {
     <input type="submit" name="btnActivar" value="CONFIRMAR ALTA " /><br>
     <a class="nav-link" aria-current="page" href="adminCuentas.jsp">Cancelar</a>
     </form>
-
-
-
-
-
-
-
-
-
 
 <%}  else  {  
 

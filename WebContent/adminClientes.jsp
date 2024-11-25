@@ -88,6 +88,10 @@
 						        	<input type="hidden" name="clienteId" value="<%= cliente.getId() %>" />
 						            <input type="submit" name="btnModificar" value="MODIFICAR" />
 						        </form>
+						        <form action="crearModificarClienteServlet" method="get">
+						        	<input type="hidden" name="clienteId" value="<%= cliente.getId() %>" />
+						            <input type="submit" name="btnCambiarClave" value="CAMBIAR CLAVE" />
+						        </form>
 							</div>
     					</td>
 					</tr>

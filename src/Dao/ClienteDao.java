@@ -79,8 +79,6 @@ public class ClienteDao implements iClienteDao{
 		
 		try
 		{
-			//String nuevoURL = host + dbName;
-			//conexion = DriverManager.getConnection(nuevoURL, user, pass);
 			conexion = conexionDB.getConnection();
 			
 			//crea el tipo de fecha compatible y lo asigna. Luego lo manda en el statement

@@ -28,4 +28,10 @@ public class UsuarioNegocio implements iUsuarioNegocio {
 		return 0;
 	}
 
+	@Override
+	public boolean cambiarClave(String usuario, String contrasenia) {
+		iUsuarioDao uDao = new UsuarioDao();
+		return uDao.cambiarClave(usuario, contrasenia);
+	}
+
 }

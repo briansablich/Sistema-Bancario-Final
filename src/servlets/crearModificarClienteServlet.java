@@ -19,6 +19,7 @@ import Dominio.Telefono;
 import Negocio.ClienteNegocio;
 import Negocio.LocalidadNegocio;
 import Negocio.ProvinciaNegocio;
+import Negocio.UsuarioNegocio;
 
 /**
  * Servlet implementation class modificaClientesServlet
@@ -69,7 +70,7 @@ public class crearModificarClienteServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/adminCrearModificarCliente.jsp");
             rd.forward(request, response);
             
-        } else if (request.getParameter("crearModificarCliente").toString().equals("ModificarCliente")) {
+        } else if (request.getParameter("crearModificarCliente") != null && request.getParameter("crearModificarCliente").toString().equals("ModificarCliente")) {
         		//BOTON DE MODIFICAR EN EL FORM DE MODIFICAR - ENVIA LOS CAMBIOS
         	int idParaModificar = Integer.parseInt(request.getParameter("idModificar"));
         	
@@ -104,18 +105,8 @@ public class crearModificarClienteServlet extends HttpServlet {
                 
                 int idProvincia = Integer.parseInt(request.getParameter("provincia"));
                 cliente.setProvincia(provNeg.getProvinciaConId(idProvincia));
-                
-//                Provincia provSeleccionada = null;
-//                for (Provincia provincia : listadoProvincias) {
-//                    if (provincia.getNombre_provincia().equals(request.getParameter("provincia"))) {
-//                    	provSeleccionada = provincia;
-//                        break;
-//                    }
-//                }
-//                cliente.setProvincia(provSeleccionada);
-                
+                 
                 Telefono telefonoPrimario = null;
-                
                 try {
                 	telefonoPrimario = (cliente.getTelefonos()).get(0);
                 }  catch (IndexOutOfBoundsException e) {
@@ -144,7 +135,7 @@ public class crearModificarClienteServlet extends HttpServlet {
                 rd.forward(request, response);
             }
 
-        } else if (request.getParameter("crearModificarCliente").toString().equals("CrearCliente")) {
+        } else if (request.getParameter("crearModificarCliente") != null && request.getParameter("crearModificarCliente").toString().equals("CrearCliente")) {
             int filasAgregadas = 0;
         	System.out.println("Entre a crear!!!");
             	// Verificar si el DNI ya existe
@@ -208,9 +199,26 @@ public class crearModificarClienteServlet extends HttpServlet {
                 System.out.println(filasAgregadas);
                 RequestDispatcher rd1 = request.getRequestDispatcher("adminClientesServlet");
                 rd1.forward(request, response);
-            } else {
-                // Manejo de error: campos incompletos o invï¿½lidos
-                // Podrï¿½as redirigir a un JSP de error o mostrar un mensaje adecuado
+                
+            }	else if (request.getParameter("btnCambiarClave") != null && request.getParameter("btnCambiarClave").toString().equals("CAMBIAR CLAVE")) {
+            	ClienteNegocio cNeg = new ClienteNegocio();
+            	int idParaModificar = Integer.parseInt(request.getParameter("clienteId"));
+            	Cliente cliente = cNeg.buscar_con_id(idParaModificar);
+            	
+                request.setAttribute("cliente", cliente);
+                RequestDispatcher rd = request.getRequestDispatcher("/cambiarClave.jsp");
+                rd.forward(request, response);
+            	
+            	System.out.println("Entré a cambiar clave");
+            } else if (request.getParameter("btnClaveNueva") != null && request.getParameter("btnClaveNueva").toString().equals("CAMBIAR CLAVE")) {
+            	String usuarioAux = request.getParameter("username");
+    	        String contraseniaAux = request.getParameter("password");
+    	        UsuarioNegocio uNeg = new UsuarioNegocio();
+            	uNeg.cambiarClave(usuarioAux, contraseniaAux);
+                RequestDispatcher rd = request.getRequestDispatcher("adminClientesServlet");
+                rd.forward(request, response);
+            }
+            else {
             	System.out.println("Se fue de viaje por que es una cacota1!!!");
             }
 	}
