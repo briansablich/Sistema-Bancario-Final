@@ -31,7 +31,6 @@ public class adminPrestamosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		mostrarPrestamos(request,response);	
 		if (request.getParameter("btnRechazar") != null)	{
 	        int idParaRechazar = Integer.parseInt(request.getParameter("prestamoId"));
 	        PrestamoNegocio preDao = new PrestamoNegocio();
@@ -42,18 +41,30 @@ public class adminPrestamosServlet extends HttpServlet {
 	        }
 		}
 		if (request.getParameter("btnAprobar") != null)	{
-			aprobarPrestamo(request,response);
-		} 
+			if(aprobarPrestamo(request,response)) {
+				 RequestDispatcher rd = request.getRequestDispatcher("adminPrestamos.jsp");
+		            rd.forward(request, response);
+		            return;
+			} else {
+				 RequestDispatcher rd = request.getRequestDispatcher("adminPrestamoRechazado.jsp");
+		            rd.forward(request, response);
+		            return;
+			}
+		} else {
+			mostrarPrestamos(request,response);			
+		}
 		//PrestamoDao pDao = new PrestamoDao();
 		//pDao.finalizarPrestamo();
 		
 	}
 	
-	private void aprobarPrestamo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private boolean aprobarPrestamo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 int idParaAprobar = Integer.parseInt(request.getParameter("prestamoId"));
 	        int idCuentaDestino = Integer.parseInt(request.getParameter("idCuentaDestino"));
 	        PrestamoNegocio preDao = new PrestamoNegocio();
-	        preDao.aprobarPrestamo(idParaAprobar, idCuentaDestino);
+	        if (preDao.aprobarPrestamo(idParaAprobar, idCuentaDestino) != 0) return true;
+	        else return false;
+			
 	}
 
 

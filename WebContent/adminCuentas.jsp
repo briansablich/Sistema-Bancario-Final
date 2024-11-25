@@ -148,7 +148,7 @@
 	                    <td><%= cuenta.getEstado()%></td>
 
                  
-    <td class"action-buttons" >
+    <td class="action-buttons" >
     <div style="display:flex">
       
        <% if (cuenta.getEstado() == Cuenta.ESTADO.True ) {%>
@@ -178,36 +178,12 @@
         </form>
     </div>
     </td>
-</tr>	
-				
-				
-				
+</tr>		
 				<% }
 	            			
 				} %>
-                 
-                 
-                 
-                 
-                 
-                 
-           
-   
-   
-
-
-
 	        </tbody>
 	    </table>
-
-
-
-
-
-
-
-
-
 
 </body>
 

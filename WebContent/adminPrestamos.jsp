@@ -125,7 +125,7 @@
                         <td><%= prestamo.getIdCuentaDestino()%></td>
                         <td><%= prestamo.getEstado()%></td>
 
-    <td class"action-buttons" >
+    <td class="action-buttons" >
     <div style="display:flex">
       
        <% if (prestamo.getEstado().name() == "Solicitado") {%>

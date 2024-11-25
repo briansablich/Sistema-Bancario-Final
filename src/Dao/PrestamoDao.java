@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Statement;
 
+import Dominio.Cliente.ESTADO;
+import Dominio.Cuenta;
 import Dominio.Pago;
 import Dominio.Prestamo;
 
@@ -228,18 +230,24 @@ public class PrestamoDao implements iPrestamoDao{
 			statement = conexion.prepareStatement(AprobarID);
 			statement.setInt(1, id_prestamo_aprobar);
 			
+			Prestamo prestamoAprobado = new Prestamo();
+			PagoDao pagoDao = new PagoDao();
+			MovimientoDao mDao = new MovimientoDao();
+			CuentaDao cuentaDao = new CuentaDao();
+			Cuenta cuentaDestino = cuentaDao.buscar_con_id(id_cuenta_destino);
+			prestamoAprobado = buscarPrestamoACuentaDestino(id_cuenta_destino, id_prestamo_aprobar);
+			
+			if (cuentaDestino.getEstado().equals(Cuenta.ESTADO.True)) {
+				pagoDao.agregarPagoABase(prestamoAprobado);
+				mDao.agregarPrestamoAMovimiento(prestamoAprobado);					
+			} else {
+				return 0;
+			}
 			if(statement.executeUpdate() > 0)
 			{
 				filas = 1;
 				System.out.println("El prestamo fue aprobado correctamente...");
-				Prestamo prestamoAprobado = new Prestamo();
-				PagoDao pagoDao = new PagoDao();
-				MovimientoDao mDao = new MovimientoDao();
 				
-				prestamoAprobado = buscarPrestamoACuentaDestino(id_cuenta_destino, id_prestamo_aprobar);
-								
-				pagoDao.agregarPagoABase(prestamoAprobado);
-				mDao.agregarPrestamoAMovimiento(prestamoAprobado);
 			}
 		} 
 		catch (SQLException e) 
