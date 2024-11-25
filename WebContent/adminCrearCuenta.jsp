@@ -4,7 +4,9 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="Dominio.Cuenta"%>
+<%@ page import="Dominio.Cliente"%>
 <%@ page import="Negocio.CuentaNegocio"%>
+<%@ page import="Negocio.ClienteNegocio"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -160,26 +162,30 @@
 
 <label> 
     <% if (cuentaAux != null) { %> 
-        ID CUENTA: <%= cuentaAux.getIdCuenta() %> 
+        NUMERO CUENTA: <%= cuentaAux.getNumeroCuenta() %> 
     <% } 
     	else { %> 
-        ID CUENTA NUEVA: <%= cuentaDao.cantidadRegistros()+1 %>  
+        CREAR CUENTA NUEVA:
     <% 	} %> 
 </label>
 		
 		
 		<br>
-		<label>ID Cliente</label>
+		<label>Cliente</label>
 		
 		
 		 <select name="idCliente" id="idCliente">
 		 	<% if(cuentaAux != null){%>
-		 		<option value="<%= cuentaAux.getCliente().getId()  %>" selected><%= cuentaAux.getCliente().getId() %></option>
+		 		<option value="<%= cuentaAux.getCliente().getId()  %>" selected><%= cuentaAux.getCliente().getId() %> - <%=cuentaAux.getCliente().getApellido()%>  <%=cuentaAux.getCliente().getNombre() %></option>
 		 	<% }
 		 	   if (request.getAttribute("listadoIdClientes") != null && cuentaAux == null){
 			 		List<Integer> listadoIdClientes =  (List<Integer>)request.getAttribute("listadoIdClientes");
-			 		for (Integer id : listadoIdClientes){   %>
-			 			<option value="<%= id %>"><%= id %></option>
+			 		ClienteNegocio cNeg = new ClienteNegocio();
+			 		Cliente clienteAux = null;
+			 		for (Integer id : listadoIdClientes){  
+			 			clienteAux = cNeg.buscar_con_id(id);%>
+			 		
+			 			<option value="<%= id %>"><%= id %> - <%=clienteAux.getApellido() %> <%=clienteAux.getNombre() %></option>
 			 	 <% }
 		 	   } %>
 		 </select>

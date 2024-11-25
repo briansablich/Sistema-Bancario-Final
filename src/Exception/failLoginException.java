@@ -15,7 +15,7 @@ public class failLoginException extends Exception{
 	@Override
 	public String getMessage() {
 		
-		return "Las credenciales ingresadas son incorrectas...";
+		return "Usuario o contraseña incorrectos...";
 		
 	}
 	
