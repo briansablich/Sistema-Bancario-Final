@@ -1,7 +1,5 @@
 package Dominio;
 
-import Dominio.Prestamo.ESTADO;
-
 public class Pago {
 	public enum ESTADO { ATiempo, Vencido , Pagado};
 	

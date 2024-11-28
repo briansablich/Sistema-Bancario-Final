@@ -14,12 +14,13 @@
 	
          <% 
          	Usuario usuario = (Usuario)session.getAttribute("usuario");
-         	if(usuario == null) {
+         	if(usuario == null  || !usuario.getAcceso().equals("Administrador")) {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");   
 				requestDispatcher.forward(request, response);
+				return;
          	}
          %>
-		<h1>Portal Administradores</h1>
+		<h1>Portal Administradores - Usuario: <%=usuario.toString()%></h1>
 
 		<jsp:include page="navbarAdministradores.html"></jsp:include>
     

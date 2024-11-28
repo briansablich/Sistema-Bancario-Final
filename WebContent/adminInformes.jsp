@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     <%@ page import="Dominio.ClienteSaldo"%>
     <%@ page import="Dominio.Provincia"%>
+    <%@ page import="Dominio.Usuario"%>
     <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -88,7 +89,16 @@
 </head>
 <body>
 
-	<h1>Portal Administradores</h1>
+	<% 
+         	Usuario usuario = (Usuario)session.getAttribute("usuario");
+         	if(usuario == null || !usuario.getAcceso().equals("Administrador")) {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");   
+				requestDispatcher.forward(request, response);
+				return;
+         	}
+         %>
+         
+	<h1>Portal Administradores - Usuario: <%=usuario.toString()%></h1>
 
 <div class="navbar">
     <a href="PortalAdministradores.jsp">Inicio</a>

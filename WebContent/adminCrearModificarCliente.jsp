@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="Dominio.Cliente"%>
+<%@ page import="Dominio.Usuario"%>
 <%@ page import="Dominio.Provincia"%>
 <%@ page import="Dominio.Localidad"%>
 <%@ page import="java.util.List"%>
@@ -12,8 +13,15 @@
 		<link rel="stylesheet" type="text/css" href="css/navbar.css"/>
 	</head>
 	<body>
-
-		<h1>Portal Administradores</h1>
+		<% 
+         	Usuario usuario = (Usuario)session.getAttribute("usuario");
+         	if(usuario == null || !usuario.getAcceso().equals("Administrador")) {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");   
+				requestDispatcher.forward(request, response);
+				return;
+         	}
+         %>
+		<h1>Portal Administradores - Usuario: <%=usuario.toString()%></h1>
 
 		<jsp:include page="navbarAdministradores.html"></jsp:include>
 

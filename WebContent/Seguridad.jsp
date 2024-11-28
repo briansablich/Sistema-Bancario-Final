@@ -16,6 +16,7 @@
          	if(usuario == null) {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");   
 				requestDispatcher.forward(request, response);
+				return;
          	}
          %>
 	

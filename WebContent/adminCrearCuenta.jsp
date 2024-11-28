@@ -3,6 +3,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.sql.*" %>
+<%@ page import="Dominio.Usuario"%>
 <%@ page import="Dominio.Cuenta"%>
 <%@ page import="Dominio.Cliente"%>
 <%@ page import="Negocio.CuentaNegocio"%>
@@ -11,7 +12,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Crear Cuenta</title>
    <style>
           .form-container {
             background-color: #ffffff;
@@ -130,8 +131,16 @@
     </style>
 </head>
 <body>
+	<% 
+         	Usuario usuario = (Usuario)session.getAttribute("usuario");
+         	if(usuario == null  || !usuario.getAcceso().equals("Administrador")) {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");   
+				requestDispatcher.forward(request, response);
+				return;
+         	}
+         %>
 
-	<h1>Portal Administradores</h1>
+	<h1>Portal Administradores - Usuario: <%=usuario.toString()%></h1>
 
 <div class="navbar">
     <a href="PortalAdministradores.jsp">Inicio</a>
