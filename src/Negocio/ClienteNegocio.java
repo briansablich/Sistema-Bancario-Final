@@ -31,6 +31,11 @@ public class ClienteNegocio implements iClienteNegocio {
 	}
 
 	@Override
+	public ArrayList<Cliente> ListarConEstadoTrue() {
+		return clienteDao.ListarConEstadoTrue();
+	}
+	
+	@Override
 	public int eliminarCliente(int id_cliente_borrar) {
 		return clienteDao.eliminarCliente(id_cliente_borrar);
 	}
@@ -64,5 +69,6 @@ public class ClienteNegocio implements iClienteNegocio {
 	public boolean existeDni(String dni) {
 		return clienteDao.existeDni(dni);
 	}
+
 
 }

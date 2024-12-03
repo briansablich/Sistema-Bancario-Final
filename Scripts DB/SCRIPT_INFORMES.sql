@@ -45,3 +45,15 @@ FROM clientes
 INNER JOIN provincias AS tProv ON clientes.provincia = tProv.id_provincia 
 GROUP BY clientes.provincia
 ORDER BY ClientesXProvincia DESC
+
+DELIMITER //
+
+CREATE PROCEDURE BuscarEntreFechas(IN fecha_inicio DATE, IN fecha_fin DATE, IN id_cuenta INT)
+BEGIN
+    SELECT * FROM movimientos 
+    WHERE movimientos.fecha >= fecha_inicio AND movimientos.fecha <= fecha_fin
+    AND (movimientos.id_cuenta_origen = id_cuenta OR movimientos.id_cuenta_destino = id_cuenta)
+    ORDER BY movimientos.fecha;
+END //
+
+DELIMITER ;

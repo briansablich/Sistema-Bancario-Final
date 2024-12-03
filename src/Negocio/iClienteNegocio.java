@@ -12,6 +12,7 @@ public interface iClienteNegocio {
 	Cliente buscar_con_id(int id);
 	List<Cliente> Listar();
 	ArrayList<Cliente> ListarConEstadoFalse();
+	ArrayList<Cliente> ListarConEstadoTrue();
 	int BajaLogicaCliente(int idClienteBaja);
 	int ModificacionCliente(Cliente clienteModificar);
 	int AltaLogicaCliente(int idClienteAlta);

@@ -1,7 +1,10 @@
 package servlets;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dominio.ClienteSaldo;
+import Dominio.Movimiento;
 import Dominio.Provincia;
 import Negocio.ClienteSaldoNegocio;
+import Negocio.MovimientoNegocio;
 import Negocio.ProvinciaNegocio;
 
 /**
@@ -37,43 +42,34 @@ public class adminInformesServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		if(request.getParameter("btnInforme1")!= null) {
-			mayorSaldoA(request, response, Float.parseFloat(request.getParameter("inputInforme1")));
-		} else if(request.getParameter("btnInforme2")!= null) {
-			menorSaldoA(request, response, Float.parseFloat(request.getParameter("inputInforme2")));
-		} else if(request.getParameter("btnInforme3")!= null) {
-			clientesPorProvincia(request, response);
+			BuscarEntreFechas(request, response);
 		}
 		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	private void mayorSaldoA (HttpServletRequest request, HttpServletResponse response, float num) throws ServletException, IOException {
-		ClienteSaldoNegocio csDao = new ClienteSaldoNegocio();
-		ArrayList<ClienteSaldo> listadoClientesPorSaldo = new ArrayList <ClienteSaldo>();
-		listadoClientesPorSaldo = (ArrayList<ClienteSaldo>) csDao.obtenerClientesConSaldoMayor(num, true);
-		request.setAttribute("listadoClientesPorSaldo", listadoClientesPorSaldo);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/adminInformes.jsp");   
-		requestDispatcher.forward(request, response);
 		
 	}
 
-	private void menorSaldoA (HttpServletRequest request, HttpServletResponse response, float num) throws ServletException, IOException {
-		ClienteSaldoNegocio csDao = new ClienteSaldoNegocio();
-		ArrayList<ClienteSaldo> listadoClientesPorSaldo = new ArrayList <ClienteSaldo>();
-		listadoClientesPorSaldo = (ArrayList<ClienteSaldo>) csDao.obtenerClientesConSaldoMayor(num, false);
-		request.setAttribute("listadoClientesPorSaldo", listadoClientesPorSaldo);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/adminInformes.jsp");   
-		requestDispatcher.forward(request, response);
+	private void BuscarEntreFechas (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		MovimientoNegocio movNeg = new MovimientoNegocio();
+		try {
+			String fechaInicioParam = request.getParameter("fecha_inicio");
+			String fechaFinParam = request.getParameter("fecha_fin");
+			
+			SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date fecha_inicio = formatoFecha.parse(fechaInicioParam);
+			java.util.Date fecha_fin = formatoFecha.parse(fechaFinParam);
+			int id_cuenta = Integer.parseInt(request.getParameter("cuentaSeleccionada"));
+			
+			ArrayList<Movimiento> listadoMovimientos = movNeg.ListarEntreFechas(id_cuenta, fecha_inicio, fecha_fin);
+			request.setAttribute("listadoMovimientos", listadoMovimientos);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/adminInformes.jsp");   
+			requestDispatcher.forward(request, response);
+		}
 		
-	}
-
-	private void clientesPorProvincia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		ProvinciaNegocio pDao = new ProvinciaNegocio();
-		ArrayList<Provincia> listadoProvincias = (ArrayList<Provincia>) pDao.getListaProvinciasConCantidadDeClientes();
-		request.setAttribute("listadoProvincias", listadoProvincias);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/adminInformes.jsp");   
-		requestDispatcher.forward(request, response);
 	}
 	
 	/**

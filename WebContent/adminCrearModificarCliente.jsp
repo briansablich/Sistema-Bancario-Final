@@ -81,7 +81,7 @@
 
 				<label>Localidad</label>
 					<select name="localidad" id="localidad">
-						<% if(request.getAttribute("listadoLocalidades") != null){ 
+						<% if(request.getAttribute("listadoLocalidades") != null){
 						List<Localidad> listadoLocalidades =  (List<Localidad>)request.getAttribute("listadoLocalidades");
 						for (Localidad l : listadoLocalidades){
 							if(cAux != null){

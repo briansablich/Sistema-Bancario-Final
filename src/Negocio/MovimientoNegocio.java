@@ -30,4 +30,9 @@ public class MovimientoNegocio implements iMovimientoNegocio {
 		return iMDao.Listar();
 	}
 
+	@Override
+	public ArrayList<Movimiento> ListarEntreFechas(int id_cuenta, java.util.Date fecha_inicio, java.util.Date fecha_fin) {
+		return iMDao.ListarEntreFechas(id_cuenta, fecha_inicio, fecha_fin);
+	}
+
 }

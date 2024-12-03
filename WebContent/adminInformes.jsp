@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="Dominio.ClienteSaldo"%>
+    <%@ page import="Dominio.Cliente"%>
+    <%@ page import="Dominio.Cuenta"%>
+    <%@ page import="Dominio.Movimiento"%>
+    <%@ page import="Negocio.ClienteNegocio"%>
+    <%@ page import="Negocio.CuentaNegocio"%>
     <%@ page import="Dominio.Provincia"%>
     <%@ page import="Dominio.Usuario"%>
     <%@ page import="java.util.ArrayList"%>
+    <%@ page import="java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -111,78 +117,121 @@
     
     <h2>Administracion de Informes</h2>
     
+    <% ClienteNegocio cNeg = new ClienteNegocio();
+    	List<Cliente> listaClientes = cNeg.ListarConEstadoTrue();
+    	CuentaNegocio cuentaNeg = new CuentaNegocio();
+    	List<Cuenta> listaCuentas = cuentaNeg.Listar();
+    %>
+    
     <div>
 	    <form method="get" action="adminInformesServlet">
-	    	<label>INFORME 1: Clientes con saldo mayor a: </label>
-		    <input type="number" id="informe1" name="inputInforme1" required>
-		    <input type="submit" id="btnInforme1" name="btnInforme1" value="Buscar"> <!-- sp_saldo_por_cliente -->
+	    	<h3>Buscar Movimientos entre fechas:</h3>
+	    	<label>Seleccionar cliente:</label>
+		    <select name="cliente" id="cliente">
+					<% if(listaClientes != null){ 
+						for (Cliente c : listaClientes){
+					%>	
+					<option value="<%= c.getId()%>"><%=c.getDni() %> - <%= c.getApellido()%></option>
+						<%}
+					}%>
+			</select>
 		    <br>
-		 </form>
-		 <form method="get" action="adminInformesServlet">
-		    <label>INFORME 2: Clientes con saldo menor a: </label>
-		    <input type="number" id="informe2" name="inputInforme2" required>
-		    <input type="submit" id="btnInforme2" name="btnInforme2" value="Buscar"> <!-- sp_saldo_por_cliente -->
+		    <label>Seleccionar cuenta:</label>
+		    <select name="cuentaSeleccionada" id="cuentaSeleccionada">
+
+			</select>
+			<br>
+				<label>Fecha Inicio</label>
+				<input type="date" name="fecha_inicio" id="fecha_inicio" required>
+			<br>
+				<label>Fecha Fin</label>
+				<input type="date" name="fecha_fin" id="fecha_fin" required>
+			<br>
+		    <input type="submit" id="btnInforme1" name="btnInforme1" value="Ver">
 		    <br>
-		 </form>
-		 <form method="get" action="adminInformesServlet">
-		    <label>INFORME 3: Cantidad de clientes por provincias: </label>
-		    <input type="submit" id="btnInforme3" name="btnInforme3" value="Ver"> <!-- vw_clientes_por_provincia -->
-		    <br>
+		    
 		    <a href="adminInformes.jsp">LIMPIAR</a>
-	    </form>
+		 </form>
     </div>
     
-		    <!-- TABLA PARA MOSTRAR INFORME 1 Y 2 -->
-		    <%  ArrayList<ClienteSaldo> listadoClientesPorSaldo = (ArrayList<ClienteSaldo>)request.getAttribute("listadoClientesPorSaldo");
-		    if(listadoClientesPorSaldo != null){ %>
+    <% List<Movimiento> listadoMovimientos = (List<Movimiento>)request.getAttribute("listadoMovimientos");
+   		 if(listadoMovimientos != null){ %>
     <table>
 	        <thead>
 	            <tr>
-	                <th>DNI</th>
-	                <th>Nombre</th>
-	                <th>Cuil</th>
-	                <th>Saldo</th>
-	                <th>Estado</th>
+	                <th>ID</th>
+	                <th>Fecha</th>
+	                <th>Concepto</th>
+	                <th>Importe</th>
+	                <th>Tipo movimiento</th>
+	                <th>Cuenta origen</th>
+	                <th>Cuenta destino</th>
 	            </tr>
 	        </thead>
 		<tbody>
-		    	<% for(ClienteSaldo cs : listadoClientesPorSaldo){ %>
+		    	<% for(Movimiento mov : listadoMovimientos){ %>
 			<tr>
-				<td><%=cs.getCliente().getDni() %> </td>
-				<td><%=cs.getCliente().getNombre() %> </td>
-				<td><%=cs.getCliente().getCuil() %> </td>
-				<td><%=cs.getSaldoTotal() %> </td>
-				<td><%=cs.getCliente().getEstado() %> </td>    
+				<td><%=mov.getId() %> </td>
+				<td><%=mov.getFecha() %> </td>
+				<td><%=mov.getConcepto() %> </td>
+				<td><%=mov.getImporte() %> </td>
+				<td><%=mov.getTipoMovimiento().getDescripcion() %> </td>    
+				<td><%=mov.getId_cuenta_origen() %> </td>    
+				<td><%=mov.getId_cuenta_destino() %> </td>    
 		    </tr>
 		    <% } %>
 		</tbody>
 	</table>
 		   <%}%>
-		   <!-- HASTA ACÁ TABLA PARA MOSTRAR INFORME 1 Y 2 -->
-		   
-		   
-		   <!-- TABLA PARA MOSTRAR INFORME 3 -->
-		    <%  ArrayList<Provincia> listadoProvincias = (ArrayList<Provincia>)request.getAttribute("listadoProvincias");
-		    if(listadoProvincias != null){ %>
-    <table>
-	        <thead>
-	            <tr>
-	                <th>Provincia</th>
-	                <th>Cantidad de Clientes</th>
-	            </tr>
-	        </thead>
-		<tbody>
-		    	<% for(Provincia p : listadoProvincias){ %>
-			<tr>
-				<td><%=p.getNombre_provincia() %> </td>
-				<td><%=p.getCantidad_clientes() %> </td>
-
-		    </tr>
-		    <% } %>
-		</tbody>
-	</table>
-		   <%}%>
-		   <!-- HASTA ACÁ TABLA PARA MOSTRAR INFORME 3 -->
+		   <!-- HASTA ACÁ TABLA PARA MOSTRAR INFORME -->
 	
+	<script>
+	
+			//SE AGREGA EL EVENTO CHANGE EN EL DESPLEGABLE DE CLIENTES
+		 // Convertir el listado de CUENTAS a JSON para que JavaScript pueda usarlo
+         const cuentas = [
+	        <% for (int i = 0; i < listaCuentas.size(); i++) {
+		            Cuenta c = listaCuentas.get(i); %>
+		        {
+		            idCuenta: <%= c.getIdCuenta() %>,
+		            numeroCuenta: "<%= c.getNumeroCuenta()%>",
+		            tipoCuenta: "<%= c.getTipoCuenta().getTipoCuenta() %>",
+		            idCliente: <%= c.getCliente().getId() %>
+		        }<%= (i < listaCuentas.size() - 1) ? "," : "" %>
+		        <% } %>
+	    	];
+
+         // Función para cargar las cuentas según el cliente seleccionado
+         function cargarCuentas(clienteSeleccionado) {
+             // Filtrar cuentas por el cliente seleccionado
+             const cuentasFiltradas = cuentas.filter(c => c.idCliente == clienteSeleccionado);
+
+             // Limpiar el select de cuentas
+             const cuentasSelect = document.getElementById("cuentaSeleccionada");
+             cuentasSelect.innerHTML = ""; // Limpiar las opciones previas
+
+             // Rellenar el select de cuentas
+             cuentasFiltradas.forEach(cuentaSeleccionada => {
+                 const option = document.createElement("option");
+                 option.value = cuentaSeleccionada.idCuenta;
+                 option.textContent = cuentaSeleccionada.numeroCuenta + " - " + cuentaSeleccionada.tipoCuenta;
+                 cuentasSelect.appendChild(option);
+             });
+         }
+
+         // Cargar cuentas al cambiar el cliente
+         document.getElementById("cliente").addEventListener("change", function () {
+             const clienteSeleccionado = this.value;
+             cargarCuentas(clienteSeleccionado);
+         });
+
+         // Cargar cuentas por defecto al cargar la página, usando la provincia seleccionada
+         window.addEventListener("load", function () {
+             const clienteSeleccionado = document.getElementById("cliente").value;
+             
+             
+             cargarCuentas(clienteSeleccionado); // Carga las cuentas del cliente seleccionado al inicio
+         });
+    </script>
 </body>
 </html>

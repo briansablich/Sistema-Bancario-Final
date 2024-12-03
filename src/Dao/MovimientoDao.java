@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.mysql.cj.jdbc.CallableStatement;
+
 import Dominio.Cliente;
 import Dominio.Cuenta;
 import Dominio.Movimiento;
@@ -19,7 +21,7 @@ public class MovimientoDao implements iMovimientoDao {
 	private static final String selectAll = "SELECT * FROM cuentas";
 	private static final String movimientoPorCuenta = "SELECT * FROM `bd_banco`.`movimientos` WHERE id_cuenta_origen = ? OR id_cuenta_destino = ?";   
 	private static final String insertMovimientoDesdePrestamo = "INSERT INTO `bd_banco`.`movimientos`(fecha, concepto, importe, id_tipo_movimiento, id_cuenta_origen, id_cuenta_destino) VALUES(?, ?, ?, ?, ?, ?)";
-			
+	private static final String movimientosEntreFechas = "CALL BuscarEntreFechas( ?, ?, ?);";
 	
 	public int agregarPrestamoAMovimiento(Prestamo prestamoAprobado) {
 		
@@ -153,6 +155,47 @@ public class MovimientoDao implements iMovimientoDao {
 			}
 		}
 		return listadoMovimiento;
+	}
+	
+	public ArrayList<Movimiento> ListarEntreFechas(int id_cuenta, java.util.Date fecha_inicio, java.util.Date fecha_fin) {
+		ArrayList<Movimiento> listadoMovimientos = new ArrayList<Movimiento>();
+		Connection conexion = null;
+		CallableStatement callableStatement;
+		ResultSet resultSet;
+		try {
+			conexion = conexionDB.getConnection();
+			callableStatement = (CallableStatement) conexion.prepareCall(movimientosEntreFechas);
+			
+			java.sql.Date sqlFechaInicio = new java.sql.Date(fecha_inicio.getTime());
+			java.sql.Date sqlFechaFin = new java.sql.Date(fecha_fin.getTime());
+			
+			callableStatement.setDate(1, sqlFechaInicio);
+			callableStatement.setDate(2, sqlFechaFin);
+			callableStatement.setInt(3, id_cuenta);
+			
+			resultSet = callableStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				listadoMovimientos.add(getMovimiento(resultSet));
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		finally {
+			if(conexion != null)
+			{
+				try 
+				{
+					conexion.close();
+				}
+				catch (SQLException e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		return listadoMovimientos;
 	}
 	
 	private Movimiento getMovimiento(ResultSet resultSet) {
