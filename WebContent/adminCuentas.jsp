@@ -90,7 +90,7 @@
     </style>
 </head>
 <body>
-	<% 
+		<% 
          	Usuario usuario = (Usuario)session.getAttribute("usuario");
          	if(usuario == null || !usuario.getAcceso().equals("Administrador")) {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");   

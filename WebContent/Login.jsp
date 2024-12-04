@@ -55,7 +55,7 @@
     </style>
 </head>
 <body>
-
+	<% request.getSession().invalidate(); %>
 <div class="login-container">
     <h2>Login</h2>
     <form action="LoginServlet" method="post">
