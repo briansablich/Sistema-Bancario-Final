@@ -2,6 +2,8 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="Dominio.Cuenta"%>
+<%@ page import="Dominio.Usuario"%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,6 +12,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+		<% 
+         	Usuario usuario = (Usuario)session.getAttribute("usuario");
+         	if(usuario == null  || !usuario.getAcceso().equals("Cliente")) {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");   
+				requestDispatcher.forward(request, response);
+				return;
+         	}
+         %>
+         <jsp:include page="navbarClientes.html"></jsp:include>
+        <jsp:include page="ClienteNombreApellido.jsp"></jsp:include>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Transferencia de Dinero</h1>
         <form action="TransferenciasServlet" method="post">

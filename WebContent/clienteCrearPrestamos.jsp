@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
 <%@ page import="Dominio.Cuenta"%>
+<%@ page import="Dominio.Usuario"%>
 <%@ page import="Dao.CuentaDao"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,7 +11,14 @@
 		<link rel="stylesheet" type="text/css" href="css/navbar.css"/>	
 	</head>
 	<body>
-
+	<% 
+         	Usuario usuario = (Usuario)session.getAttribute("usuario");
+         	if(usuario == null  || !usuario.getAcceso().equals("Cliente")) {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");   
+				requestDispatcher.forward(request, response);
+				return;
+         	}
+         %>
 		<jsp:include page="navbarClientes.html"></jsp:include>
            <jsp:include page="ClienteNombreApellido.jsp"></jsp:include>
 <label>       
@@ -29,9 +37,9 @@
 	                
 	                <label for="cuotas">Cantidad de Cuotas:</label>
 		                <select name="cuotas" id="cuotas">
-		                	<option value="1">1</option>
-			                <option value="3">3</option>
-			                <option value="6">6</option>
+		                	<option value="12">12</option>
+			                <option value="24">24</option>
+			                <option value="36">36</option>
 		                </select><br><br>
 	                
 	                

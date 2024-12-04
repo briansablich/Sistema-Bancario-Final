@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 						requestDispatcher.forward(request, response);	
 					} else if (usuario.getAcceso() == "Cliente") {
 						request.getSession().setAttribute("usuario", usuario);
-						RequestDispatcher requestDispatcher = request.getRequestDispatcher("/PortalClientes.jsp");   
+						RequestDispatcher requestDispatcher = request.getRequestDispatcher("/clientePerfilServlet");   
 						requestDispatcher.forward(request, response);
 					}
 		        }

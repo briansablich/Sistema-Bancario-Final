@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="Dominio.Prestamo"%>
+<%@ page import="Dominio.Usuario"%>
 <%@ page import="Dao.PrestamoDao"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,7 +32,14 @@
     </style>
 	</head>
 	<body>
-
+	<% 
+         	Usuario usuario = (Usuario)session.getAttribute("usuario");
+         	if(usuario == null  || !usuario.getAcceso().equals("Cliente")) {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");   
+				requestDispatcher.forward(request, response);
+				return;
+         	}
+         %>
 		<jsp:include page="navbarClientes.html"></jsp:include>
            <jsp:include page="ClienteNombreApellido.jsp"></jsp:include>
 	    <div class="container">
@@ -45,8 +53,6 @@
 	            <table>
 	        <thead>
 	            <tr>
-	                <th>ID</th>
-	                <th>ID Cliente</th>
 	                <th>Fecha de solicitud</th>
 	                <th>Importe solicitado</th>
 	                <th>Importe a pagar</th>
@@ -65,8 +71,6 @@
 	            %>
 	            		
 	                <tr>
-	                    <td><%= prestamo.getIdPrestamo() %></td>
-	                    <td><%= prestamo.getCliente().getId() %></td>
 	                    <td><%= prestamo.getFechaAlta().toString() %></td>
 	                    <td><%= prestamo.getImporteSolicitado() %></td>
 	                    <td><%= prestamo.getImporteApagar() %></td>
@@ -75,11 +79,13 @@
 	                    <td><%= prestamo.getMontoMensual() %></td>
 	                    <td><%= prestamo.getEstado().name() %></td>
 	                    
-					    <td class"action-buttons" >
+					    <td class="action-buttons" >
 					    <div style="display:flex">
 					        <form action="PortalPagosBancoServlet" method="get">
+					        <%if(prestamo.getEstado().equals(Prestamo.ESTADO.Aprobado)){ %>
 					        	<input type="hidden" name="prestamoId" value="<%= prestamo.getIdPrestamo() %>" />
 					            <input type="submit" name="btnPagarPrestamo" value="PAGAR" />
+					            <%} %>
 					        </form>
 					    </div>
 					    </td>
@@ -90,10 +96,7 @@
 
 	        </tbody>
 	    </table>
-	            
-	            
-	            
-	            
+
 	        </div>
 	    </div>
 	</body>

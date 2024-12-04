@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page import="Dominio.Usuario"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -7,9 +8,16 @@
 		<link rel="stylesheet" type="text/css" href="css/navbar.css"/>	
 	</head>
 	<body>
-
+	<% 
+         	Usuario usuario = (Usuario)session.getAttribute("usuario");
+         	if(usuario == null  || !usuario.getAcceso().equals("Cliente")) {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");   
+				requestDispatcher.forward(request, response);
+				return;
+         	}
+         %>
 		<jsp:include page="navbarClientes.html"></jsp:include>
-           <jsp:include page="ClienteNombreApellido.jsp"></jsp:include>
+        <jsp:include page="ClienteNombreApellido.jsp"></jsp:include>
 	    <div class="container">
 	        <div class="header">
 	            <h1>Préstamos</h1>
