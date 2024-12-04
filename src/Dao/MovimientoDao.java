@@ -36,7 +36,6 @@ public class MovimientoDao implements iMovimientoDao {
 		int filas = 0;
 		String concepto = "PRESTAMO";
 		int idTipoMovimiento = 1;
-		int cuentaBanco = 1;
 		float montoNuevo = prestamoAprobado.getImporteSolicitado() + cuentaAfectada.getSaldo();
 		
 		try
@@ -51,7 +50,7 @@ public class MovimientoDao implements iMovimientoDao {
 			statement.setString(2, concepto);
 			statement.setFloat(3, prestamoAprobado.getImporteSolicitado());
 			statement.setInt(4, idTipoMovimiento);
-			statement.setInt(5, cuentaBanco);
+			statement.setInt(5, prestamoAprobado.getIdCuentaDestino());
 			statement.setInt(6, prestamoAprobado.getIdCuentaDestino());
 
 			filas = statement.executeUpdate();

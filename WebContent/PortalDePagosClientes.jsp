@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="Dominio.Pago"%>
 <%@ page import="Dominio.Usuario"%>
-<%@ page import="Dao.PagoDao"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -79,7 +78,7 @@
 	                    
 					    <td class="action-buttons" >
 					    <div style="display:flex">
-				            <input type="submit" value="Efectuar Pago (deco?)" />
+				            <input type="submit" value="Pagar" />
 					    </div>
 					    </td>
 					</tr>	

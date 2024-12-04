@@ -70,7 +70,7 @@
 	                <p><strong>Numero de cuenta: </strong><%= c.getNumeroCuenta() %> </p>
 	                <p> <strong>Cbu: </strong><%= c.getCbu() %> </p>
 	                <p><strong>Saldo:</strong> $ <%= c.getSaldo() %> </p>
-	                <p><strong>Tipo de cuenta:</strong> $ <%= c.getTipoCuenta().getTipoCuenta() %> </p>
+	                <p><strong>Tipo de cuenta:</strong><%= c.getTipoCuenta().getTipoCuenta() %> </p>
                 </div>
   					<%}
 				}%>
