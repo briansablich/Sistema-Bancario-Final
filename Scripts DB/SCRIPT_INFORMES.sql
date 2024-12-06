@@ -55,5 +55,23 @@ BEGIN
     AND (movimientos.id_cuenta_origen = id_cuenta OR movimientos.id_cuenta_destino = id_cuenta)
     ORDER BY movimientos.fecha;
 END //
+DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE PagarCuota(IN p_cbu_origen VARCHAR(22), IN id_cuota_apagar INT, IN p_monto DECIMAL(10,2))
+BEGIN
+    DECLARE saldo_origen DECIMAL(10,2);
+	START TRANSACTION;
+    SELECT saldo INTO saldo_origen FROM cuentas WHERE CBU = p_cbu_origen;
+	
+    IF saldo_origen >= p_monto THEN
+        UPDATE cuentas SET saldo = saldo - p_monto WHERE CBU = p_cbu_origen;
+        UPDATE cuotas_prestamos SET estado = 'Pagada', fecha_pago = NOW() WHERE id_cuota_apagar = cuotas_prestamos.id_cuota;
+	COMMIT;
+        -- Opcional: Se pueden Insertar registros de movimiento aca
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No hay suficiente saldo para realizar la operacion';
+        ROLLBACK;
+    END IF;
+END //
 DELIMITER ;

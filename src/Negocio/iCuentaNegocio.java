@@ -8,7 +8,7 @@ import Dominio.Cuenta;
 
 public interface iCuentaNegocio {
 	int modificarMontoACuenta(float montoNuevo,  int id_cuenta);
-	List<Cuenta> getListaCuentasPorCliente(int id_cliente);
+	ArrayList<Cuenta> getListaCuentasPorCliente(int id_cliente);
 	ArrayList <Cuenta> Listar();
 	Cuenta buscar_con_id(int id);
 	ArrayList<Cuenta> ListarConEstadoFalse();

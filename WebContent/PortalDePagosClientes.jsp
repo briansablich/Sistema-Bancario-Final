@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="Dominio.Pago"%>
+<%@ page import="Dominio.CuotasPrestamo"%>
+<%@ page import="Negocio.CuentaNegocio"%>
 <%@ page import="Dominio.Usuario"%>
+<%@ page import="Dominio.Cuenta"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,39 +50,55 @@
 	        </div>
 	
 	        <div class="info-section">
-	            <h2>Pago para el Prestamo: <%= request.getAttribute("idPrestamo") %> </h2>
-	            
+	            <h2>Pagos para el Prestamo: <%= request.getAttribute("idPrestamo") %> </h2>
+	            <br>
+				<form action="PortalPagosBancoServlet" method="get">
+	            <label>Seleccionar cuenta para pagar:</label>
+	            <select name="cbuCuenta">
+	            <% CuentaNegocio cuentaNegocio = new CuentaNegocio();
+	            	ArrayList<Cuenta> listaCuentasCliente = cuentaNegocio.getListaCuentasPorCliente(usuario.getCliente().getId());
+	            	for(Cuenta cuenta : listaCuentasCliente){
+	            		if(cuenta.getEstado() == Cuenta.ESTADO.True){
+	            	%>
+	            		<option value="<%=cuenta.getCbu() %>" > <%=cuenta.getNumeroCuenta() %> - <%=cuenta.getTipoCuenta().getTipoCuenta() %></option>
+	            	<%}
+	            		}%>
+	            	
+	            </select>
 	            <table>
 	        <thead>
 	            <tr>
-	                <th>ID</th>
-	                <th>Fecha</th>
-	                <th>Importe</th>
-	                <th>Fecha de Vencimiento</th>
-	                <th>ID Prestamo Vinculado</th>
-	                <th>ID Cuenta afectada</th>
+	                <th>Id Prestamo</th>
+	                <th>Numero Cuota</th>
+	                <th>Monto Cuota</th>
+	                <th>Fecha Vencimiento</th>
+	                <th>Fecha Pago</th>
+	                <th>Estado</th>
 	                
 	            </tr>
 	        </thead>
 	        <tbody>
 	            <% 
-	            ArrayList<Pago> listadoPagos = (ArrayList<Pago>)request.getAttribute("listaDePagosPorPrestamo");
-	            	if(listadoPagos != null) {
-	            		for(Pago pago : listadoPagos) {
+	            ArrayList<CuotasPrestamo> listaCuotasPorPrestamo = (ArrayList<CuotasPrestamo>)request.getAttribute("listaCuotasPorPrestamo");
+	            	if(listaCuotasPorPrestamo != null) {
+	            		for(CuotasPrestamo cuota : listaCuotasPorPrestamo) {
 	            %>
 	            		
 	                <tr>
-	                    <td><%= pago.getId() %></td>
-	                    <td> <%if(pago.getFecha()!=null){ %> <%= pago.getFecha() %>   <%}else{ %>N/A<%} %> </td>
-	                    <td><%= pago.getImporteApagar() %></td>
-	                    <td><%= pago.getFechaVencimiento() %></td>  
-	                    <td><%= pago.getIdPrestamo() %></td>
-	                    <td><%= pago.getIdCuenta() %></td>
+	                    <td><%= cuota.getId_prestamo() %></td>
+	                    <td><%= cuota.getNumero_cuota()%></td>
+	                    <td><%= cuota.getMonto_cuota()%></td>  
+	                    <td><%= cuota.getFecha_vencimiento()%></td>
+	                    <td> <%if(cuota.getFecha_pago()!=null){ %> <%= cuota.getFecha_pago()%> <%}else{ %>N/A<%} %> </td>
+	                    <td><%= cuota.getEstado() %></td>
 	                    
 					    <td class="action-buttons" >
-					    <div style="display:flex">
-				            <input type="submit" value="Pagar" />
-					    </div>
+						    <div style="display:flex">
+						    <%if(cuota.getEstado() != CuotasPrestamo.ESTADO.Pagada){ %>
+						    	<input type="hidden" name="CuotaId" value="<%= cuota.getId_cuota()%>" />
+					            <input type="submit" name="btnPagarCuota" value="Pagar Cuota" />
+					            <%} %>
+						    </div>
 					    </td>
 					</tr>	
 				<% }
@@ -87,11 +106,8 @@
 				} %>
 
 	        </tbody>
-	    </table>
-	            
-	            
-	            
-	            
+	    </table>           
+		</form>
 	        </div>
 	    </div>
 	</body>

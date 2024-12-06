@@ -17,12 +17,11 @@ public class CuentaNegocio implements iCuentaNegocio {
 
 	@Override
 	public int modificarMontoACuenta(float montoNuevo, int id_cuenta) {
-		
 		return cDao.modificarMontoACuenta(montoNuevo, id_cuenta);
 	}
 
 	@Override
-	public List<Cuenta> getListaCuentasPorCliente(int id_cliente) {
+	public ArrayList<Cuenta> getListaCuentasPorCliente(int id_cliente) {
 		return cDao.getListaCuentasPorCliente(id_cliente);
 	}
 

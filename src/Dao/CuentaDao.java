@@ -67,7 +67,7 @@ public class CuentaDao implements iCuentaDao{
 		    return filas;	
 	}
 	
-	public List<Cuenta> getListaCuentasPorCliente(int id_cliente) {
+	public ArrayList<Cuenta> getListaCuentasPorCliente(int id_cliente) {
 
 		Connection conexion = null;
 		PreparedStatement statement;
