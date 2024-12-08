@@ -49,8 +49,7 @@ public class PrestamoDao implements iPrestamoDao{
 			statement.setInt(8, prestamoNuevo.getIdCuentaDestino());
 			statement.setString(9, prestamoNuevo.getEstado().name());
 			
-			if(statement.executeUpdate() > 0)
-			{
+			if(statement.executeUpdate() > 0){
 				filas = 1;
 				System.out.println("El Prestamo fue Insertado correctamente...");
 			}
@@ -231,15 +230,15 @@ public class PrestamoDao implements iPrestamoDao{
 			statement.setInt(1, id_prestamo_aprobar);
 			
 			Prestamo prestamoAprobado = new Prestamo();
-			PagoDao pagoDao = new PagoDao();
 			MovimientoDao mDao = new MovimientoDao();
 			CuentaDao cuentaDao = new CuentaDao();
 			Cuenta cuentaDestino = cuentaDao.buscar_con_id(id_cuenta_destino);
 			prestamoAprobado = buscarPrestamoACuentaDestino(id_cuenta_destino, id_prestamo_aprobar);
 			
 			if (cuentaDestino.getEstado().equals(Cuenta.ESTADO.True)) {
-				pagoDao.agregarPagoABase(prestamoAprobado);
 				mDao.agregarPrestamoAMovimiento(prestamoAprobado);					
+				CuotasPrestamoDao cpDao = new CuotasPrestamoDao();
+				cpDao.generarCuotas(id_prestamo_aprobar, prestamoAprobado.getCuotas(), prestamoAprobado.getImporteApagar());
 			} else {
 				return 0;
 			}
