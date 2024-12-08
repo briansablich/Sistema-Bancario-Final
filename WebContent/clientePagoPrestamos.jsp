@@ -43,11 +43,11 @@
            <jsp:include page="ClienteNombreApellido.jsp"></jsp:include>
 	    <div class="container">
 	        <div class="header">
-	            <h1>Pago de Préstamos</h1>
+	            <h1>Préstamos</h1>
 	        </div>
 	
 	        <div class="info-section">
-	            <h2>Prestamos Pendientes</h2>
+	            <h2>Prestamos asociados a la cuenta</h2>
 	            
 	            <table>
 	        <thead>
@@ -56,7 +56,6 @@
 	                <th>Importe solicitado</th>
 	                <th>Importe a pagar</th>
 	                <th>Cantidad de Cuotas</th>
-	                <th>Plazo restante</th>
 	                <th>Monto Mensual</th>
 	                <th>Estado</th>
 	                
@@ -74,7 +73,6 @@
 	                    <td><%= prestamo.getImporteSolicitado() %></td>
 	                    <td><%= prestamo.getImporteApagar() %></td>
 	                    <td><%= prestamo.getCuotas() %></td>
-	                    <td><%= prestamo.getPlazo() %> Dias</td>
 	                    <td><%= prestamo.getMontoMensual() %></td>
 	                    <td><%= prestamo.getEstado().name() %></td>
 	                    

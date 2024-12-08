@@ -137,25 +137,3 @@ CREATE TABLE cuotas_prestamos
     PRIMARY KEY (id_cuota),
     FOREIGN KEY (id_prestamo) REFERENCES prestamos(id_prestamo)
 );
-
-USE bd_banco;
-
-DELIMITER //
-
-CREATE PROCEDURE TransferirDinero(IN p_cbu_origen VARCHAR(22), IN p_cbu_destino VARCHAR(22), IN p_monto DECIMAL(10,2))
-BEGIN
-    DECLARE saldo_origen DECIMAL(10,2);
-
-    SELECT saldo INTO saldo_origen FROM cuentas WHERE CBU = p_cbu_origen;
-
-    IF saldo_origen >= p_monto THEN
-        UPDATE cuentas SET saldo = saldo - p_monto WHERE CBU = p_cbu_origen;
-        UPDATE cuentas SET saldo = saldo + p_monto WHERE CBU = p_cbu_destino;
-
-        -- Opcional: Se pueden Insertar registros de movimiento aca
-    ELSE
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No hay suficiente saldo para realizar la transferencia';
-    END IF;
-END //
-
-DELIMITER ;

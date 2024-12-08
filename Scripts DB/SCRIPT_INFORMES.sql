@@ -61,12 +61,16 @@ DELIMITER //
 CREATE PROCEDURE PagarCuota(IN p_cbu_origen VARCHAR(22), IN id_cuota_apagar INT, IN p_monto DECIMAL(10,2))
 BEGIN
     DECLARE saldo_origen DECIMAL(10,2);
+    DECLARE id_cuenta_pago INT;
 	START TRANSACTION;
-    SELECT saldo INTO saldo_origen FROM cuentas WHERE CBU = p_cbu_origen;
+    SELECT saldo, id_cuenta INTO saldo_origen, id_cuenta_pago FROM cuentas WHERE CBU = p_cbu_origen;
+    
 	
     IF saldo_origen >= p_monto THEN
         UPDATE cuentas SET saldo = saldo - p_monto WHERE CBU = p_cbu_origen;
         UPDATE cuotas_prestamos SET estado = 'Pagada', fecha_pago = NOW() WHERE id_cuota_apagar = cuotas_prestamos.id_cuota;
+        INSERT INTO MOVIMIENTOS (fecha, concepto, importe, id_tipo_movimiento, id_cuenta_origen, id_cuenta_destino)
+        VALUES (NOW(), 'Pago prestamo', p_monto, 2, id_cuenta_pago, id_cuenta_pago);
 	COMMIT;
         -- Opcional: Se pueden Insertar registros de movimiento aca
     ELSE
@@ -74,4 +78,35 @@ BEGIN
         ROLLBACK;
     END IF;
 END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE TransferirDinero(IN p_cbu_origen VARCHAR(22), IN p_cbu_destino VARCHAR(22), IN p_monto DECIMAL(10,2))
+BEGIN
+    DECLARE saldo_origen DECIMAL(10,2);
+    DECLARE cuenta_origen_trans INT;
+    DECLARE cuenta_destino_trans INT;
+
+    SELECT saldo, id_cuenta INTO saldo_origen, cuenta_origen_trans FROM cuentas WHERE CBU = p_cbu_origen;
+    SELECT id_cuenta INTO cuenta_destino_trans FROM cuentas WHERE CBU = p_cbu_destino;
+	START TRANSACTION;
+    IF saldo_origen >= p_monto AND p_cbu_origen != p_cbu_destino THEN
+        UPDATE cuentas SET saldo = saldo - p_monto WHERE CBU = p_cbu_origen;
+        UPDATE cuentas SET saldo = saldo + p_monto WHERE CBU = p_cbu_destino;
+        
+        -- Insert movimiento en cuenta origen
+        INSERT INTO MOVIMIENTOS (fecha, concepto, importe, id_tipo_movimiento, id_cuenta_origen, id_cuenta_destino)
+        VALUES (NOW(), 'Transferencia', p_monto, 2, cuenta_origen_trans, cuenta_destino_trans);
+        
+        -- Insert movimiento en cuenta destino
+        INSERT INTO MOVIMIENTOS (fecha, concepto, importe, id_tipo_movimiento, id_cuenta_origen, id_cuenta_destino)
+        VALUES (NOW(), 'Transferencia', p_monto, 1, cuenta_origen_trans, cuenta_destino_trans);
+	COMMIT;
+        -- Opcional: Se pueden Insertar registros de movimiento aca
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No hay suficiente saldo para realizar la transferencia';
+        ROLLBACK;
+    END IF;
+END //
+
 DELIMITER ;

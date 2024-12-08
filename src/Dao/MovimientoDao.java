@@ -101,8 +101,20 @@ public class MovimientoDao implements iMovimientoDao {
 			statement.setInt(2, id_cuenta);
 			resultSet = statement.executeQuery();
 			while(resultSet.next()) {
-				listadoMovimiento.add(getMovimiento(resultSet));
+				
+				Movimiento movAux = getMovimiento(resultSet);
+				
+				//si es transferencia luego pregunta si es egreso o ingreso de las cuentas
+				if (movAux.getConcepto().equals("Transferencia")){
+					if(movAux.getTipoMovimiento().getDescripcion().equals("egreso") && movAux.getId_cuenta_origen() == id_cuenta) {
+						listadoMovimiento.add(movAux);
+					} else if(movAux.getTipoMovimiento().getDescripcion().equals("ingreso") && movAux.getId_cuenta_origen() != id_cuenta) {
+						listadoMovimiento.add(movAux);
+					}
+				} else {
+				listadoMovimiento.add(movAux);
 			}
+		}
 		}
 		catch(SQLException e){
 			e.printStackTrace();
@@ -134,7 +146,7 @@ public class MovimientoDao implements iMovimientoDao {
 			statement = conexion.prepareStatement(selectAll);
 			resultSet = statement.executeQuery();
 			while(resultSet.next()) {
-				listadoMovimiento.add(getMovimiento(resultSet));
+			listadoMovimiento.add(getMovimiento(resultSet));
 			}
 		}
 		catch(SQLException e){

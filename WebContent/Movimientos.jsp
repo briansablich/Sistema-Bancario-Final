@@ -77,12 +77,6 @@
 	                    <td><%= movimiento.getTipoMovimiento().getDescripcion() %></td>  
 	                    <td><%= movimiento.getId_cuenta_origen() %></td>
 	                    <td><%= movimiento.getId_cuenta_destino() %> </td>
-	                    
-					    <td class="action-buttons" >
-					    <div style="display:flex">
-				            <input type="submit" value="VER COMPROBANTE (deco)" />
-					    </div>
-					    </td>
 					</tr>	
 				<% }
 	            			
@@ -90,10 +84,6 @@
 
 	        </tbody>
 	    </table>
-	            
-	            
-	            
-	            
 	        </div>
 	    </div>
 	</body>
