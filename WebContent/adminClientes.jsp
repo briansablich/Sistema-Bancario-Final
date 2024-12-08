@@ -9,6 +9,19 @@
 		<title>Portal bancario UTN</title>
 		<link rel="stylesheet" type="text/css" href="css/navbar.css"/>
 		<link rel="stylesheet" type="text/css" href="css/adminClientes.css"/>
+		<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+		
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#tablaClientes').DataTable();
+			});
+		</script>
 	</head>
 	<body>
 	
@@ -30,7 +43,7 @@
             <input type="submit" name="btnCrear" value="CREAR" />					         
         </form>
 		
-		<table>
+		<table id="tablaClientes">
 	        <thead>
 	            <tr>
 	                <th>ID Cliente</th>
@@ -48,6 +61,7 @@
 	                <th>Tel. Primario</th>
 	                <th>Tel. Secundario</th>
 	                <th>Estado</th>
+	                <th>Accion</th>
 	            </tr>
 	        </thead>
 	        <tbody>

@@ -8,6 +8,19 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Movimientos Cuenta</title>
+		<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+		
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#tablaMovimientos').DataTable();
+			});
+		</script>
 		<link rel="stylesheet" type="text/css" href="css/navbar.css"/>	
 		<style>
 		table {
@@ -50,7 +63,7 @@
 	        <div class="info-section">
 	            <h2>Movimientos de la cuenta</h2>
 	            
-	            <table>
+	            <table id="tablaMovimientos">
 	        <thead>
 	            <tr>
 	                <th>ID</th>

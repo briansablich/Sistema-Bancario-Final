@@ -7,7 +7,20 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Portal bancario UTN</title>
-		<link rel="stylesheet" type="text/css" href="css/navbar.css"/>	
+		<link rel="stylesheet" type="text/css" href="css/navbar.css"/>
+		<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+		
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#tablaPrestamos').DataTable();
+			});
+		</script>
 		<style>
 		table {
 		   width: 100%;
@@ -49,7 +62,7 @@
 	        <div class="info-section">
 	            <h2>Prestamos asociados a la cuenta</h2>
 	            
-	            <table>
+	            <table id="tablaPrestamos">
 	        <thead>
 	            <tr>
 	                <th>Fecha de solicitud</th>
@@ -58,6 +71,7 @@
 	                <th>Cantidad de Cuotas</th>
 	                <th>Monto Mensual</th>
 	                <th>Estado</th>
+	                <th>Accion</th>
 	                
 	            </tr>
 	        </thead>

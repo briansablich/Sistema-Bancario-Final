@@ -32,6 +32,16 @@
 		   padding: 0.3em;
 		}        
     </style>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+	    		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#tablaCuotas').DataTable();
+			});
+		</script>
+		
+
 	</head>
 	<body>
 	<% 
@@ -66,7 +76,7 @@
 	            		}%>
 	            	
 	            </select>
-	            <table>
+	            <table id="tablaCuotas">
 	        <thead>
 	            <tr>
 	                <th>Id Prestamo</th>
@@ -75,6 +85,7 @@
 	                <th>Fecha Vencimiento</th>
 	                <th>Fecha Pago</th>
 	                <th>Estado</th>
+	                <th>Accion</th>
 	                
 	            </tr>
 	        </thead>
