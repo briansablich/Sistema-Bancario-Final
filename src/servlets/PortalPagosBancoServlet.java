@@ -39,12 +39,12 @@ public class PortalPagosBancoServlet extends HttpServlet {
 		int id_cuota = Integer.parseInt(request.getParameter("CuotaId"));
 		cpn.pagarCuota(id_cuota, cbu);
 		
-//		ArrayList<CuotasPrestamo> listaCuotasPorPrestamo = new ArrayList<>();
-//		int idPrestamo = Integer.parseInt(request.getParameter("prestamoId"));
-//		listaCuotasPorPrestamo = (ArrayList<CuotasPrestamo>) cpn.listarCuotas(idPrestamo);
-//		request.setAttribute("idPrestamo", idPrestamo);
-//		request.setAttribute("listaCuotasPorPrestamo", listaCuotasPorPrestamo);
-		RequestDispatcher rd = request.getRequestDispatcher("/clientePagoPrestamos.jsp");
+		ArrayList<CuotasPrestamo> listaCuotasPorPrestamo = new ArrayList<>();
+		int idPrestamo = Integer.parseInt(request.getParameter("idPrestamo"));
+		listaCuotasPorPrestamo = (ArrayList<CuotasPrestamo>) cpn.listarCuotas(idPrestamo);
+		request.setAttribute("idPrestamo", idPrestamo);
+		request.setAttribute("listaCuotasPorPrestamo", listaCuotasPorPrestamo);
+		RequestDispatcher rd = request.getRequestDispatcher("/PortalDePagosClientes.jsp");
         rd.forward(request, response);
 	}
 
@@ -52,7 +52,7 @@ public class PortalPagosBancoServlet extends HttpServlet {
 		CuotasPrestamoNegocio cpn = new CuotasPrestamoNegocio();
 		// aca listar
 		ArrayList<CuotasPrestamo> listaCuotasPorPrestamo = new ArrayList<>();
-		int idPrestamo = Integer.parseInt(request.getParameter("prestamoId"));
+		int idPrestamo = Integer.parseInt(request.getParameter("idPrestamo"));
 		listaCuotasPorPrestamo = (ArrayList<CuotasPrestamo>) cpn.listarCuotas(idPrestamo);
 		
 		request.setAttribute("idPrestamo", idPrestamo);

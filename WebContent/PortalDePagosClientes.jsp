@@ -53,6 +53,7 @@
 	            <h2>Pagos para el Prestamo: <%= request.getAttribute("idPrestamo") %> </h2>
 	            <br>
 				<form action="PortalPagosBancoServlet" method="get">
+				<input type="hidden" name="idPrestamo" value="<%= request.getAttribute("idPrestamo")%>" />
 	            <label>Seleccionar cuenta para pagar:</label>
 	            <select name="cbuCuenta">
 	            <% CuentaNegocio cuentaNegocio = new CuentaNegocio();
@@ -106,7 +107,8 @@
 				} %>
 
 	        </tbody>
-	    </table>           
+	    </table>
+	    <input type="hidden" name="listaCuotasPorPrestamo" value="<%= listaCuotasPorPrestamo%>" />
 		</form>
 	        </div>
 	    </div>

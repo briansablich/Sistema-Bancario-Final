@@ -82,7 +82,7 @@
 					    <div style="display:flex">
 					        <form action="PortalPagosBancoServlet" method="get">
 					        <%if(prestamo.getEstado().equals(Prestamo.ESTADO.Aprobado)){ %>
-					        	<input type="hidden" name="prestamoId" value="<%= prestamo.getIdPrestamo() %>" />
+					        	<input type="hidden" name="idPrestamo" value="<%= prestamo.getIdPrestamo() %>" />
 					            <input type="submit" name="btnPagarPrestamo" value="PAGAR" />
 					            <%} %>
 					        </form>
