@@ -89,7 +89,7 @@
 	                    	<option value="<%= c.getIdCuenta()  %>"><%= c.getCbu()%> " - " <%= c.getTipoCuenta().getTipoCuenta()%></option>
 						<%} %>
 	                </select>
-	                <input type="submit" value="Ver Movimientos">
+	                <input type="submit" value="Ver Movimientos" <%if(listadoCuentas.isEmpty()) {%>disabled<%}%> >
 	            </form>
 	            <% }else{ %>
 	            <h2>Aun no posee Cuentas para realizar Movimientos</h2>
