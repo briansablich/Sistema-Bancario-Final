@@ -26,7 +26,7 @@ public class CuentaDao implements iCuentaDao{
 	private static final String cantidadCuentas = "SELECT COUNT(*) FROM `bd_banco`.`cuentas`;";
 	private static final String ultimoNumCuentaIngresado = "SELECT numero_cuenta FROM bd_banco.cuentas ORDER BY id_cuenta DESC LIMIT 1";
 	private static final String traerUltimoCbu = "SELECT CBU FROM bd_banco.cuentas ORDER BY id_cuenta DESC LIMIT 1";
-	private static final String cantidadCuentasPorCliente = "SELECT COUNT(*) FROM `bd_banco`.`cuentas` where id_cliente = ?";
+	private static final String cantidadCuentasPorCliente = "SELECT COUNT(*) FROM `bd_banco`.`cuentas` where id_cliente = ? AND estado = 'True'";
 	//se modifica el saldo 
 	private static final String modificarSaldo = "UPDATE cuentas SET saldo = ? WHERE id_cuenta = ?;";
 
@@ -329,11 +329,11 @@ public class CuentaDao implements iCuentaDao{
 				
 				statement.setString(5, cuentaNueva.getCbu());
 				statement.setFloat(6, 10000);
-				statement.setString(7, cuentaNueva.getEstado().name());
+				statement.setString(7, "True");
 				if(statement.executeUpdate() > 0)
 				{
 					filas = 1;
-					System.out.println("La cuenta fue registrada correctamente en estado Inactivo...");
+					System.out.println("La cuenta fue registrada correctamente...");
 				}
 			} 
 			catch (SQLException e) 
@@ -405,11 +405,16 @@ public class CuentaDao implements iCuentaDao{
 	    int filas = 0;
 
 	    try {
-	        conexion = conexionDB.getConnection();
-	        pst = conexion.prepareStatement(altaLogica);
-	        pst.setInt(1, idCuentaAlta);
-	
-	        filas = pst.executeUpdate();
+	    	Cuenta cuenta = buscar_con_id(idCuentaAlta);
+	    	int maximoCuentasPorCliente = 3;
+			int cuentasActuales = cuentasDelCliente(cuenta.getCliente().getId());
+			if(cuentasActuales < maximoCuentasPorCliente) {
+		        conexion = conexionDB.getConnection();
+		        pst = conexion.prepareStatement(altaLogica);
+		        pst.setInt(1, idCuentaAlta);
+		
+		        filas = pst.executeUpdate();
+			}
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    } finally {

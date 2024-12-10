@@ -57,8 +57,7 @@ public class adminCuentasServlet extends HttpServlet {
 		}
 		else {  
 			mostrarCuenta(request, response);
-		
-			
+
 		}
 	
 	 }
@@ -180,12 +179,10 @@ public class adminCuentasServlet extends HttpServlet {
         int idParaActivar = Integer.parseInt(request.getParameter("CuentaId"));
 
         iCuentaNegocio cuentaDao = new CuentaNegocio();
-        int baja = cuentaDao.AltaLogicaCuenta(idParaActivar);
+        cuentaDao.AltaLogicaCuenta(idParaActivar);
+        
+        mostrarCuenta(request, response);
 
-        if (baja == 1) {
-            RequestDispatcher rd = request.getRequestDispatcher("adminCuentas.jsp");
-            rd.forward(request, response);
-        }
     }	
 	
 	private void mostrarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
