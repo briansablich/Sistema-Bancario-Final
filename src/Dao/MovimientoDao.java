@@ -20,7 +20,7 @@ public class MovimientoDao implements iMovimientoDao {
 
 	private static final String selectAll = "SELECT * FROM cuentas";
 	private static final String movimientoPorCuenta = "SELECT * FROM `bd_banco`.`movimientos` WHERE id_cuenta_origen = ? OR id_cuenta_destino = ?";   
-	private static final String insertMovimientoDesdePrestamo = "INSERT INTO `bd_banco`.`movimientos`(fecha, concepto, importe, id_tipo_movimiento, id_cuenta_origen, id_cuenta_destino) VALUES(?, ?, ?, ?, ?, ?)";
+	private static final String insertMovimiento = "INSERT INTO `bd_banco`.`movimientos`(fecha, concepto, importe, id_tipo_movimiento, id_cuenta_origen, id_cuenta_destino) VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String movimientosEntreFechas = "CALL BuscarEntreFechas( ?, ?, ?);";
 	
 	public int agregarPrestamoAMovimiento(Prestamo prestamoAprobado) {
@@ -45,7 +45,7 @@ public class MovimientoDao implements iMovimientoDao {
 			java.util.Date utilDate = new java.util.Date();
 		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 			
-			statement = conexion.prepareStatement(insertMovimientoDesdePrestamo);
+			statement = conexion.prepareStatement(insertMovimiento);
 			statement.setDate(1, sqlDate);
 			statement.setString(2, concepto);
 			statement.setFloat(3, prestamoAprobado.getImporteSolicitado());
@@ -232,5 +232,53 @@ public class MovimientoDao implements iMovimientoDao {
 		
 		return movimiento;
 	}
+	
+	public void agregarAltaCuentaAMovimiento(Cuenta cuentaAgregada) {		
+		
+		Connection conexion = null;
+		PreparedStatement statement;
+		int idTipoMovimiento = 1;
+		
+		try
+		{
+			conexion = conexionDB.getConnection();
+			
+			java.util.Date utilDate = new java.util.Date();
+		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			
+			statement = conexion.prepareStatement(insertMovimiento);
+			statement.setDate(1, sqlDate);
+			statement.setString(2, "Alta Cuenta");
+			statement.setFloat(3, 10000);
+			statement.setInt(4, idTipoMovimiento);
+			statement.setInt(5, cuentaAgregada.getIdCuenta());
+			statement.setInt(6, cuentaAgregada.getIdCuenta());
 
+			statement.executeUpdate();
+			
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		finally {
+			if(conexion != null)
+			{
+				try 
+				{
+					conexion.close();
+				}
+				catch (SQLException e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
 }

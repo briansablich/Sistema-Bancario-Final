@@ -226,7 +226,6 @@ public class CuentaDao implements iCuentaDao{
 			    	listadoCuentasFalse.add(listadoCuentas.get(i));
 			    }
 
-		
 		}
 		
 			
@@ -335,6 +334,9 @@ public class CuentaDao implements iCuentaDao{
 					filas = 1;
 					System.out.println("La cuenta fue registrada correctamente...");
 				}
+				
+				MovimientoDao movDao = new MovimientoDao();
+				movDao.agregarAltaCuentaAMovimiento(cuentaNueva);
 			} 
 			catch (SQLException e) 
 			{
