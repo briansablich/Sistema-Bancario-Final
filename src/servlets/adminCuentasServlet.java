@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import Dominio.Cliente;
 import Dominio.Cuenta;
 import Dominio.TiposCuenta;
+import Exception.errorActivacionCuenta;
 import Negocio.ClienteNegocio;
 import Negocio.CuentaNegocio;
 import Negocio.iClienteNegocio;
@@ -43,7 +44,12 @@ public class adminCuentasServlet extends HttpServlet {
             eliminarCuenta(request, response);
 		}
 		else if (request.getParameter("btnActivar")!=null) {
-            activarCuenta(request, response);
+			try {
+				activarCuenta(request, response);
+				
+			} catch (errorActivacionCuenta e) {
+				e.printStackTrace();
+			}
 		}       
 		else if (request.getParameter("btnModificarCuenta")!=null) {
             modificarCuenta(request, response);
@@ -167,27 +173,26 @@ public class adminCuentasServlet extends HttpServlet {
         int idParaBorrar = Integer.parseInt(request.getParameter("CuentaId"));
 
         iCuentaNegocio cuentaDao = new CuentaNegocio();
-        int baja = cuentaDao.BajaLogicaCuenta(idParaBorrar);
+        cuentaDao.BajaLogicaCuenta(idParaBorrar);
 
-        if (baja == 1) {
-            RequestDispatcher rd = request.getRequestDispatcher("adminCuentas.jsp");
-            rd.forward(request, response);
-        }
+        mostrarCuenta(request, response);
     }
 	
-	private void activarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void activarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, errorActivacionCuenta {
         int idParaActivar = Integer.parseInt(request.getParameter("CuentaId"));
 
         iCuentaNegocio cuentaDao = new CuentaNegocio();
-        cuentaDao.AltaLogicaCuenta(idParaActivar);
-        
-        mostrarCuenta(request, response);
+        int alta = cuentaDao.AltaLogicaCuenta(idParaActivar);
+        if (alta!=0) {
+        	mostrarCuenta(request, response);        	
+        } else {
+        	mostrarCuenta(request, response);
+        	throw new errorActivacionCuenta();
+        }
 
     }	
 	
 	private void mostrarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	
 		ArrayList<Cuenta> listadoCuentas = new ArrayList<Cuenta>();
 		try {
 			iCuentaNegocio cd = new CuentaNegocio();
@@ -209,7 +214,6 @@ public class adminCuentasServlet extends HttpServlet {
 			e.printStackTrace();
 		}	
 		
-		int filasAgregadas = 0;
 		request.setAttribute("listadoCuentas", listadoCuentas);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/adminCuentas.jsp");   
 		requestDispatcher.forward(request, response);
