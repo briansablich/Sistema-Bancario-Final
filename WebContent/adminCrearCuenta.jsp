@@ -191,11 +191,13 @@
 			 		List<Integer> listadoIdClientes =  (List<Integer>)request.getAttribute("listadoIdClientes");
 			 		ClienteNegocio cNeg = new ClienteNegocio();
 			 		Cliente clienteAux = null;
-			 		for (Integer id : listadoIdClientes){  
-			 			clienteAux = cNeg.buscar_con_id(id);%>
+			 		for (Integer id : listadoIdClientes){
+			 			clienteAux = cNeg.buscar_con_id(id);
+			 			if(clienteAux.getEstado() == Cliente.ESTADO.True){%>
 			 		
 			 			<option value="<%= id %>"><%= id %> - <%=clienteAux.getApellido() %> <%=clienteAux.getNombre() %></option>
 			 	 <% }
+			 		}
 		 	   } %>
 		 </select>
 		 
